@@ -14,6 +14,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Alex',
+      alias: 'Alex',
       scores: {
         billo: 12,
         elo: 12,
@@ -26,6 +27,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Markus',
+      alias: 'Alex',
       scores: {
         billo: 1,
         elo: 1,
@@ -38,6 +40,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Thomas',
+      alias: 'Alex',
       scores: {
         billo: 25,
         elo: 25,
@@ -50,6 +53,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Thomas',
+      alias: 'Alex',
       scores: {
         billo: 25,
         elo: 25,
@@ -62,6 +66,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Thomas',
+      alias: 'Alex',
       scores: {
         billo: 25,
         elo: 25,
@@ -74,6 +79,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Thomas',
+      alias: 'Alex',
       scores: {
         billo: 25,
         elo: 25,
@@ -86,6 +92,7 @@ export class DataService {
       lost: 0,
       won: 1,
       name: 'Thomas',
+      alias: 'Alex',
       scores: {
         billo: 25,
         elo: 25,
