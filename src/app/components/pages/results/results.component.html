@@ -1,16 +1,15 @@
 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-  <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
-      data-tabs-toggle="#default-tab-content" role="tablist">
+  <ul #defaultTab class="flex flex-wrap -mb-px text-sm font-medium text-center"
+      role="tablist">
     <li class="me-2" role="presentation">
-      <button class="inline-block p-4 border-b-2 rounded-t-lg" id="oneVsOne-tab" data-tabs-target="#oneVsOne"
+      <button class="inline-block p-4 border-b-2 rounded-t-lg" #oneVsOneTab
               type="button" role="tab" aria-controls="oneVsOne" aria-selected="false">1 vs. 1
       </button>
     </li>
     <li class="me-2" role="presentation">
       <button
-        class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-        id="twoVsTwo-tab" data-tabs-target="#twoVsTwo" type="button" role="tab" aria-controls="twoVsTwo"
-        aria-selected="false">2 vs. 2
+        class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" #twoVsTwoTab
+        type="button" role="tab" aria-controls="twoVsTwo" aria-selected="false">2 vs. 2
       </button>
     </li>
   </ul>
@@ -18,7 +17,7 @@
 
 
 <div id="default-tab-content">
-  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="oneVsOne" role="tabpanel"
+  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" #oneVsOne role="tabpanel"
        aria-labelledby="oneVsOne-tab">
 
     <form class="flex flex-row gap-3 justify-between max-w-2xl mx-auto">
@@ -68,10 +67,8 @@
 
 
   </div>
-  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="twoVsTwo" role="tabpanel"
+  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" #twoVsTwo role="tabpanel"
        aria-labelledby="twoVsTwo-tab">
-
-
 
     <form class="flex flex-row gap-3 justify-between max-w-2xl mx-auto">
       <div class="grow">
