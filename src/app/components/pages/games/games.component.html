@@ -1,52 +1,148 @@
 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-  <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+  <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
+      data-tabs-toggle="#default-tab-content" role="tablist">
     <li class="me-2" role="presentation">
-      <button class="inline-block p-4 border-b-2 rounded-t-lg" id="oneVsOne-tab" data-tabs-target="#oneVsOne" type="button" role="tab" aria-controls="oneVsOne" aria-selected="false">1 vs. 1</button>
+      <button class="inline-block p-4 border-b-2 rounded-t-lg" id="oneVsOne-tab" data-tabs-target="#oneVsOne"
+              type="button" role="tab" aria-controls="oneVsOne" aria-selected="false">1 vs. 1
+      </button>
     </li>
     <li class="me-2" role="presentation">
-      <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="twoVsTwo-tab" data-tabs-target="#twoVsTwo" type="button" role="tab" aria-controls="twoVsTwo" aria-selected="false">2 vs. 2</button>
+      <button
+        class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+        id="twoVsTwo-tab" data-tabs-target="#twoVsTwo" type="button" role="tab" aria-controls="twoVsTwo"
+        aria-selected="false">2 vs. 2
+      </button>
     </li>
   </ul>
 </div>
 
 
 <div id="default-tab-content">
-  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="oneVsOne" role="tabpanel" aria-labelledby="oneVsOne-tab">
+  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="oneVsOne" role="tabpanel"
+       aria-labelledby="oneVsOne-tab">
 
+    <form class="flex flex-row gap-3 justify-between max-w-2xl mx-auto">
+      <div class="grow">
+        <label for="playerOne" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white text-nowrap">Player One</label>
+        <select id="playerOne"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Spieler 1</option>
+          <option value="1">Matthias</option>
+          <option value="2">Christin</option>
+          <option value="3">Alexander</option>
+          <option value="4">Jonas</option>
+          <option value="5">Lukas</option>
+        </select>
+      </div>
+      <div class="w-20">
+        <label for="score-player-one" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
+        <input type="number" id="score-player-one" aria-describedby="helper-text-explanation"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+               placeholder="00" required />
+      </div>
 
-    <form class="max-w-sm mx-auto">
-      <label for="playerOne" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Player One</label>
-      <select id="playerOne" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected>Spieler 1</option>
-        <option value="1">Matthias</option>
-        <option value="2">Christin</option>
-        <option value="3">Alexander</option>
-        <option value="4">Jonas</option>
-        <option value="5">Lukas</option>
-      </select>
-      <label for="score-player-one" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a number:</label>
-      <input type="number" id="score-player-one" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required />
+      <div class="text-3xl self-center">
+        <span>:</span>
+      </div>
+
+      <div class="w-20">
+        <label for="score-player-two" class="mb-2 block text-right text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
+        <input type="number" id="score-player-two" aria-describedby="helper-text-explanation"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+               placeholder="00" required />
+      </div>
+
+      <div class="grow">
+        <label for="countries" class="mb-2 block text-sm text-right font-medium text-gray-900 dark:text-white text-nowrap">Player two</label>
+        <select id="countries"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Spieler 2</option>
+          <option value="1">Matthias</option>
+          <option value="2">Christin</option>
+          <option value="3">Alexander</option>
+          <option value="4">Jonas</option>
+          <option value="5">Lukas</option>
+        </select>
+      </div>
     </form>
-
-
-    <form class="max-w-sm mx-auto">
-      <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Player two</label>
-      <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option selected>Spieler 2</option>
-        <option value="1">Matthias</option>
-        <option value="2">Christin</option>
-        <option value="3">Alexander</option>
-        <option value="4">Jonas</option>
-        <option value="5">Lukas</option>
-      </select>
-      <label for="score-player-two" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a number:</label>
-      <input type="number" id="score-player-two" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="90210" required />
-    </form>
-
 
 
   </div>
-  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="twoVsTwo" role="tabpanel" aria-labelledby="twoVsTwo-tab">
-    <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">twoVsTwo tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="twoVsTwo" role="tabpanel"
+       aria-labelledby="twoVsTwo-tab">
+
+
+
+    <form class="flex flex-row gap-3 justify-between max-w-2xl mx-auto">
+      <div class="grow">
+        <h2>Team 1</h2>
+
+        <label for="team-one-playerOne" class="mb-2 text-sm block font-medium text-gray-900 dark:text-white text-nowrap">Player One</label>
+        <select id="team-one-playerOne"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Spieler 1</option>
+          <option value="1">Matthias</option>
+          <option value="2">Christin</option>
+          <option value="3">Alexander</option>
+          <option value="4">Jonas</option>
+          <option value="5">Lukas</option>
+        </select>
+
+        <label for="team-one-playerTwo" class="mb-2 mt-3 block text-sm font-medium text-gray-900 dark:text-white text-nowrap ">Player One</label>
+        <select id="team-one-playerTwo"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Spieler 1</option>
+          <option value="1">Matthias</option>
+          <option value="2">Christin</option>
+          <option value="3">Alexander</option>
+          <option value="4">Jonas</option>
+          <option value="5">Lukas</option>
+        </select>
+      </div>
+      <div class="w-20 self-center">
+        <label for="score-team-one" class="mb-2 text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
+        <input type="number" id="score-team-one" aria-describedby="helper-text-explanation"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+               placeholder="00" required />
+      </div>
+
+      <div class="text-3xl self-center">
+        <span>:</span>
+      </div>
+
+      <div class="w-20 self-center">
+        <label for="score-team-one" class="mb-2 text-right block text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
+        <input type="number" id="score-team-two" aria-describedby="helper-text-explanation"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+               placeholder="00" required />
+      </div>
+
+      <div class="grow">
+      <h2 class="text-right">Team 2</h2>
+        <label for="team-two-playerOne" class="mb-2 text-right text-sm block font-medium text-gray-900 dark:text-white text-nowrap">Player One</label>
+        <select id="team-two-playerOne"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Spieler 1</option>
+          <option value="1">Matthias</option>
+          <option value="2">Christin</option>
+          <option value="3">Alexander</option>
+          <option value="4">Jonas</option>
+          <option value="5">Lukas</option>
+        </select>
+
+        <label for="team-two-playerTwo" class="mb-2 mt-3 text-right text-sm block font-medium text-gray-900 dark:text-white text-nowrap">Player One</label>
+        <select id="team-two-playerTwo"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option selected>Spieler 1</option>
+          <option value="1">Matthias</option>
+          <option value="2">Christin</option>
+          <option value="3">Alexander</option>
+          <option value="4">Jonas</option>
+          <option value="5">Lukas</option>
+        </select>
+      </div>
+
+    </form>
+
   </div>
 </div>
