@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'kickathon-leaderboard',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss',
 })
