@@ -6,9 +6,12 @@
       <tr>
         <th scope="col" class="px-6 py-3 w-4">Position</th>
         <th scope="col" class="px-6 py-3">Name</th>
-        <th scope="col" class="px-6 py-3 w-4">Verloren</th>
-        <th scope="col" class="px-6 py-3 w-4">Gewonnen</th>
-        <th scope="col" class="px-6 py-3 w-4">Score</th>
+        <th scope="col" class="px-6 py-3 w-4">SP</th>
+        <th scope="col" class="px-6 py-3 w-4">S</th>
+        <th scope="col" class="px-6 py-3 w-4">N</th>
+        <th scope="col" class="px-6 py-3 w-4">Tore</th>
+        <th scope="col" class="px-6 py-3 w-4">Diff</th>
+        <th scope="col" class="px-6 py-3 w-4">Punkte</th>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +22,7 @@
             scope="row"
             class="px-6 py-4"
             [ngClass]="{
-              'border-r-4': $index < 3,
+              'border-l-4': $index < 3,
               'border-l-gold': $index === 0,
               'border-l-silver': $index === 1,
               'border-l-bronze': $index === 2,
@@ -29,8 +32,11 @@
           <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ player.name }}
           </td>
-          <td class="px-6 py-4">{{ player.lost }}</td>
+          <td class="px-6 py-4">{{ player.games.length }}</td>
           <td class="px-6 py-4">{{ player.won }}</td>
+          <td class="px-6 py-4">{{ player.lost }}</td>
+          <td class="px-6 py-4">{{ getGoals(player) }}</td>
+          <td class="px-6 py-4">{{ getGoalDifference(player) }}</td>
           <td class="px-6 py-4">{{ player.scores.billo }}</td>
         </tr>
       }
