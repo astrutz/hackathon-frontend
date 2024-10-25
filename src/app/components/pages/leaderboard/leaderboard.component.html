@@ -4,7 +4,7 @@
   <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
-        <th scope="col" class="px-6 py-3 w-4">Position</th>
+        <th scope="col" class="px-6 py-3 w-2">Pl.</th>
         <th scope="col" class="px-6 py-3">Name</th>
         <th scope="col" class="px-6 py-3 w-4">SP</th>
         <th scope="col" class="px-6 py-3 w-4">S</th>
@@ -29,7 +29,8 @@
             }">
             {{ $index + 1 }}
           </th>
-          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
+            <img src="img/logo.png" class="h-8 w-8">
             {{ player.name }}
           </td>
           <td class="px-6 py-4">{{ player.games.length }}</td>
@@ -37,7 +38,7 @@
           <td class="px-6 py-4">{{ player.lost }}</td>
           <td class="px-6 py-4">{{ getGoals(player) }}</td>
           <td class="px-6 py-4">{{ getGoalDifference(player) }}</td>
-          <td class="px-6 py-4">{{ player.scores.billo }}</td>
+          <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">{{ player.scores.billo }}</td>
         </tr>
       }
     </tbody>

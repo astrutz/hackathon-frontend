@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../data/player.data';
+import { Game } from '../data/game.data';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class DataService {
           score1: 0,
           score2: 1,
           timestamp: 0,
-        }
+        },
       ],
       id: '1',
       lost: 0,
@@ -61,7 +62,7 @@ export class DataService {
         elo: 25,
         glicko: 25,
       },
-      },
+    },
     {
       games: [],
       id: '4',
@@ -74,7 +75,7 @@ export class DataService {
         elo: 25,
         glicko: 25,
       },
-      },
+    },
     {
       games: [],
       id: '5',
@@ -87,7 +88,7 @@ export class DataService {
         elo: 25,
         glicko: 25,
       },
-      },
+    },
     {
       games: [],
       id: '6',
@@ -100,7 +101,7 @@ export class DataService {
         elo: 25,
         glicko: 25,
       },
-      },
+    },
     {
       games: [],
       id: '7',
@@ -115,4 +116,67 @@ export class DataService {
       },
     },
   ];
+
+  public games: Game[] = [
+    {
+      id: '22',
+      players: ['1', '2'],
+      score1: 2,
+      score2: 4,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3', '1', '5'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+    {
+      id: '22',
+      players: ['4', '3'],
+      score1: 7,
+      score2: 1,
+      timestamp: 1729891282367,
+    },
+  ];
+
+  public getPlayerById(id: string): Player | null {
+    return this.players.find((player) => player.id === id) ?? null;
+  }
 }

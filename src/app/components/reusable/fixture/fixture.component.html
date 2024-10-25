@@ -1,0 +1,20 @@
+<div class="flex justify-center items-center gap-8 border-b-2 pb-2 border-gray-800">
+  <div class="w-64 flex place-content-end items-center gap-2">
+    <div>{{ player1 }}</div>
+    @if (is1v1) {
+      <img src="img/logo.png" class="h-8 w-8" />
+    }
+  </div>
+
+  <div>
+    <span>{{ game.score1 }}</span>
+    <span>:</span>
+    <span>{{ game.score2 }}</span>
+  </div>
+  <div class="w-64 flex items-center gap-2">
+    @if (is1v1) {
+      <img src="img/logo.png" class="h-8 w-8" />
+    }
+    <span>{{ player2 }}</span>
+  </div>
+</div>
