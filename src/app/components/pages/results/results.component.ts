@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { TabItem, Tabs, TabsInterface } from 'flowbite';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'kickathon-results',
@@ -8,7 +9,9 @@ import { TabItem, Tabs, TabsInterface } from 'flowbite';
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss'
 })
-export class ResultsComponent implements AfterViewInit{
+export class ResultsComponent implements AfterViewInit {
+
+  protected dataService: DataService = inject(DataService);
 
   @ViewChild('defaultTab') tabElement!: ElementRef;
 
