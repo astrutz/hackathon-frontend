@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {initFlowbite} from "flowbite";
+import {FooterComponent} from "./components/reusable/footer/footer.component";
+import {HeaderComponent} from "./components/reusable/header/header.component";
 
 @Component({
-  selector: 'app-root',
+  selector: 'kickathon-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, FooterComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
