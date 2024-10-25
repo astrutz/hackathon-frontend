@@ -9,11 +9,26 @@ export class DataService {
 
   public players: Player[] = [
     {
-      games: [],
-      id: '222',
+      games: [
+        {
+          id: '',
+          players: ['1', '3'],
+          score1: 4,
+          score2: 1,
+          timestamp: 0,
+        },
+        {
+          id: '',
+          players: ['1', '3'],
+          score1: 0,
+          score2: 1,
+          timestamp: 0,
+        }
+      ],
+      id: '1',
       lost: 0,
       won: 1,
-      name: 'Alex',
+      name: 'Peter Wackel',
       alias: 'Alex',
       scores: {
         billo: 12,
@@ -23,10 +38,10 @@ export class DataService {
     },
     {
       games: [],
-      id: '222',
+      id: '2',
       lost: 0,
       won: 1,
-      name: 'Markus',
+      name: 'Mallekalle',
       alias: 'Alex',
       scores: {
         billo: 1,
@@ -36,10 +51,10 @@ export class DataService {
     },
     {
       games: [],
-      id: '222',
+      id: '3',
       lost: 0,
       won: 1,
-      name: 'Thomas',
+      name: 'Mia Julia',
       alias: 'Alex',
       scores: {
         billo: 25,
@@ -49,10 +64,10 @@ export class DataService {
       },
     {
       games: [],
-      id: '222',
+      id: '4',
       lost: 0,
       won: 1,
-      name: 'Thomas',
+      name: 'Almklausi',
       alias: 'Alex',
       scores: {
         billo: 25,
@@ -62,10 +77,10 @@ export class DataService {
       },
     {
       games: [],
-      id: '222',
+      id: '5',
       lost: 0,
       won: 1,
-      name: 'Thomas',
+      name: 'Mickie Krause',
       alias: 'Alex',
       scores: {
         billo: 25,
@@ -75,10 +90,10 @@ export class DataService {
       },
     {
       games: [],
-      id: '222',
+      id: '6',
       lost: 0,
       won: 1,
-      name: 'Thomas',
+      name: 'Ikke Hüftgold',
       alias: 'Alex',
       scores: {
         billo: 25,
@@ -88,10 +103,10 @@ export class DataService {
       },
     {
       games: [],
-      id: '222',
+      id: '7',
       lost: 0,
       won: 1,
-      name: 'Thomas',
+      name: 'Isi Glück',
       alias: 'Alex',
       scores: {
         billo: 25,
