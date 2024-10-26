@@ -17,12 +17,12 @@ export class LoginComponent {
   private fb: FormBuilder = inject(FormBuilder);
 
   loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    name: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
-  get email() {
-    return this.loginForm.get('email');
+  get name() {
+    return this.loginForm.get('name');
   }
 
   get password() {
@@ -31,7 +31,7 @@ export class LoginComponent {
 
   onLogin(): void {
     this._userService
-      .login(this.loginForm.value)
+      .login(this.loginForm.getRawValue())
       .then((token) => {
         this._userService.setToken(token);
         this.router.navigate(['leaderboard']);

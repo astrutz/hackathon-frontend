@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import axios from 'axios';
+import { RegisterData } from '../data/register.data';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class UserService {
     return (await axios.post(`${this.host}/auth/login`, data)).data;
   }
 
-  public async register(data: any): Promise<any> {
+  public async register(data: RegisterData): Promise<any> {
     return (await axios.post(`${this.host}/auth/register`, data)).data
   }
 
