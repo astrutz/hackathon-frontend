@@ -9,9 +9,13 @@ import { Game } from '../data/game.data';
 export class RequestService {
   private host = isDevMode() ? '/api' : 'https://handsome-petra-kickathon-de3bbbf4.koyeb.app';
 
-  async getPlayers(): Promise<Player[]> {
+  async getPlayers(type?: string): Promise<Player[]> {
+    if (type) {
+      return (await axios.get(`${this.host}/players?sort=${type}`)).data;
+    }
     return (await axios.get(`${this.host}/players`)).data;
   }
+
 
   async getPlayer(id: string): Promise<Player> {
     return (await axios.get(`${this.host}/players/${id}`)).data;
@@ -29,11 +33,8 @@ export class RequestService {
     await axios.delete(`${this.host}/players/${id}`);
   }
 
-  async getGames(type?: string): Promise<Game[]> {
-    if (type) {
-      return (await axios.get(`${this.host}/games?sort=${type}`)).data;
-    }
-    return (await axios.get(`${this.host}/games`)).data;
+  async getGames(year: number, week: number): Promise<Game[]> {
+    return (await axios.get(`${this.host}/games`)).data; // todo: add week and year
   }
 
   async getGame(id: string): Promise<Game> {

@@ -50,6 +50,6 @@ export class LeaderboardComponent {
   }
 
   onChange(event: Event, value: string): void {
-    this.dataService.changeGameType(value);
+    this.dataService.sortType$.set(value);
   }
 }
