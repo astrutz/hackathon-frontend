@@ -3,6 +3,7 @@ import { Player } from '../data/player.data';
 import { Game } from '../data/game.data';
 import { RequestService } from './request.service';
 import { PlayerHistory } from '../data/history.data';
+import { sign } from 'chart.js/helpers';
 
 export type APIData<T> = {
   data: T;
@@ -13,18 +14,12 @@ export type APIData<T> = {
   providedIn: 'root',
 })
 export class DataService {
-  public players$: WritableSignal<APIData<Player[]>> = signal({
-    data: [],
-    loadingState: 'loading',
-  });
-  public games$: WritableSignal<APIData<Game[]>> = signal({
-    data: [],
-    loadingState: 'loading',
-  });
-  public history$: WritableSignal<APIData<PlayerHistory[]>> = signal({
-    data: [],
-    loadingState: 'loading',
-  });
+  public playersLoadingState$: WritableSignal<'loading' | 'success'> = signal('loading');
+  public players$: WritableSignal<Player[]> = signal([]);
+  public gamesLoadingState$: WritableSignal<'loading' | 'success'> = signal('loading');
+  public games$: WritableSignal<Game[]> = signal([]);
+  public historyLoadingState$: WritableSignal<'loading' | 'success'> = signal('loading');
+  public history$: WritableSignal<PlayerHistory[]> = signal([]);
 
   public sortType$ = signal('');
   public calendarWeek$ = signal(this.weekNumber);
@@ -33,37 +28,38 @@ export class DataService {
   private _requestService: RequestService = inject(RequestService);
   constructor() {
     effect(() => {
+      console.log('get players');
       this._requestService
         .getPlayers(this.sortType$() === '' ? undefined : this.sortType$())
         .then((players) => {
-          this.players$.set({ data: players, loadingState: 'success' });
+          this.players$.set(players);
+          this.playersLoadingState$.set('success');
           this.loadPlayerHistory();
         });
     });
     effect(() => {
       this._requestService.getGames(this.calendarWeek$(), this.calendarYear$()).then((games) => {
-        this.games$.set({ data: games, loadingState: 'success' });
+        this.games$.set(games);
+        this.gamesLoadingState$.set('success');
       });
     });
   }
 
   public getPlayerById(id: number): Player | null {
-    return this.players$().data.find((player) => player.id === id) ?? null;
+    return this.players$().find((player) => player.id === id) ?? null;
   }
 
   public loadPlayerHistory() {
-    this.history$.set({
-      data: [],
-      loadingState: 'loading',
-    });
+    this.historyLoadingState$.set('loading');
+    this.history$.set([]);
     let loaded = 0;
-    this.players$().data.forEach((player) => {
+    this.players$().forEach((player) => {
       this._requestService.getHistory(player.id).then((history) => {
         this.history$.update((oldHistory) => {
           loaded++;
-          oldHistory.data.push({ name: player.name, history });
-          if (loaded === this.players$().data.length) {
-            oldHistory.loadingState = 'success';
+          oldHistory.push({ name: player.name, history });
+          if (loaded === this.players$().length) {
+            this.historyLoadingState$.set('success');
             return oldHistory;
           }
           return oldHistory;

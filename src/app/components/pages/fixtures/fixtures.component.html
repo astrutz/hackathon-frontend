@@ -1,8 +1,7 @@
 <h1 class="text-2xl font-semibold text-center lg:mt-4 mt-2 mb-4 lg:mb-8">Begegnungen</h1>
 
 @if (
-  dataService.games$().loadingState === 'success' &&
-  dataService.players$().loadingState === 'success'
+  dataService.gamesLoadingState$() === 'success' && dataService.playersLoadingState$() === 'success'
 ) {
   <div class="mx-auto max-w-screen-lg">
     <div
@@ -87,7 +86,7 @@
     </div>
 
     <div class="flex flex-col gap-8">
-      @for (game of dataService.games$().data; track game.id) {
+      @for (game of dataService.games$(); track game.id) {
         <kickathon-fixture [game]="game"></kickathon-fixture>
       } @empty {
         <div
