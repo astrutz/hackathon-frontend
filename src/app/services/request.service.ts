@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Player } from '../data/player.data';
 import axios from 'axios';
 import { Game } from '../data/game.data';
@@ -7,7 +7,7 @@ import { Game } from '../data/game.data';
   providedIn: 'root',
 })
 export class RequestService {
-  private host = '/api';
+  private host = isDevMode() ? '/api' : 'https://handsome-petra-kickathon-de3bbbf4.koyeb.app';
 
   async getPlayers(): Promise<Player[]> {
     return (await axios.get(`${this.host}/players`)).data;
