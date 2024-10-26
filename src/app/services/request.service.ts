@@ -3,6 +3,7 @@ import { Player } from '../data/player.data';
 import axios from 'axios';
 import { Game } from '../data/game.data';
 import { PlayerHistoryEntry } from '../data/history.data';
+import { RegisterData } from '../data/register.data';
 
 @Injectable({
   providedIn: 'root',
@@ -55,5 +56,13 @@ export class RequestService {
 
   async getHistory(id: number): Promise<PlayerHistoryEntry[]> {
     return (await axios.get(`${this.host}/players/${id}/history`)).data;
+  }
+
+  async login(data: any): Promise<string> {
+    return (await axios.post(`${this.host}/auth/login`, data)).data;
+  }
+
+  async register(data: RegisterData): Promise<string> {
+    return (await axios.post(`${this.host}/auth/register`, data)).data;
   }
 }

@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import { Component, inject, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'kickathon-header',
@@ -9,9 +10,8 @@ import {RouterLink} from "@angular/router";
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-
+  userService: UserService = inject(UserService);
 
   @Input()
-  userName: String = "Teamname";
-
+  userName: String = 'Teamname';
 }
