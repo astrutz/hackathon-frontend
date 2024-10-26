@@ -71,7 +71,8 @@
               "buildTarget": "kickathon:build:production"
             },
             "development": {
-              "buildTarget": "kickathon:build:development"
+              "buildTarget": "kickathon:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
