@@ -3,6 +3,7 @@ import { DataService } from '../../../services/data.service';
 import { NgClass } from '@angular/common';
 import { Player } from '../../../data/player.data';
 import { Game } from '../../../data/game.data';
+import { players } from '../../../example/players.example';
 
 @Component({
   selector: 'kickathon-leaderboard',
@@ -23,28 +24,30 @@ export class LeaderboardComponent {
   }
 
   private _getScoredGoals(player: Player): number {
-    return player.games
-      .map((game: Game) => {
+    return (
+      player.games?.map((game: Game) => {
         if (game.players[0] === player.id || game.players[2] === player.id) {
           return game.score1;
         } else if (game.players[1] === player.id || game.players[3] === player.id) {
           return game.score2;
         }
         return 0;
-      })
-      .reduce((a, b) => a + b, 0);
+      }) ?? []
+    ).reduce((a, b) => a + b, 0);
   }
 
   private _getConcededGoals(player: Player): number {
-    return player.games
-      .map((game: Game) => {
+    return (
+      player.games?.map((game: Game) => {
         if (game.players[0] === player.id || game.players[2] === player.id) {
           return game.score2;
         } else if (game.players[1] === player.id || game.players[3] === player.id) {
           return game.score1;
         }
         return 0;
-      })
-      .reduce((a, b) => a + b, 0);
+      }) ?? []
+    ).reduce((a, b) => a + b, 0);
   }
+
+  protected readonly players = players;
 }
