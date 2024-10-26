@@ -16,20 +16,24 @@ export class FixtureComponent {
   game!: Game;
 
   get player1(): string {
-    if (this.is1v1) {
+    if (this.is1v1A) {
       return this.dataService.getPlayerById(this.game.team1Players?.[0])?.name ?? '';
     }
     return `${this.dataService.getPlayerById(this.game.team1Players?.[0])?.name ?? ''} & ${this.dataService.getPlayerById(this.game.team1Players?.[1])?.name ?? ''}`;
   }
 
   get player2(): string {
-    if (this.is1v1) {
+    if (this.is1v1B) {
       return this.dataService.getPlayerById(this.game.team2Players?.[0])?.name ?? '';
     }
     return `${this.dataService.getPlayerById(this.game.team2Players?.[0])?.name ?? ''} & ${this.dataService.getPlayerById(this.game.team2Players?.[1])?.name ?? ''}`;
   }
 
-  get is1v1(): boolean {
+  get is1v1A(): boolean {
     return (this.game.team1Players.length ?? 1) === 1;
+  }
+
+  get is1v1B(): boolean {
+    return (this.game.team2Players.length ?? 1) === 1;
   }
 }
