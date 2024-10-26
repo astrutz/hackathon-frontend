@@ -21,6 +21,7 @@ export class RegisterComponent {
   public errors: any;
   public success: boolean = false;
   private requestService: RequestService = inject(RequestService);
+  private _userService: UserService = inject(UserService);
 
   private router: Router = inject(Router);
 
@@ -45,14 +46,11 @@ export class RegisterComponent {
   async onRegister(): Promise<void> {
     if (this.registerForm.valid) {
       try {
-        await this.requestService.register(this.registerForm.getRawValue());
-        this.registerForm.reset();
-        this.errors = null;
-        this.success = true;
-        this.router.navigate(['']);
+        const token = await this.requestService.register(this.registerForm.getRawValue());
+        this._userService.setToken(token);
+        this.router.navigate(['leaderboard']);
       } catch (err) {
         this.errors = err;
-        this.success = false;
       }
     }
   }
