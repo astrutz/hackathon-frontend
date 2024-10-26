@@ -7,7 +7,7 @@
         class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
         <form class="max-w-sm">
           <label for="sort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Sortieren nach</label
+          >Sortieren nach</label
           >
           <select
             #sort
@@ -20,7 +20,7 @@
         </form>
         <form class="hidden lg:block max-w-sm">
           <label for="sort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ansicht</label
+          >Ansicht</label
           >
           <select
             #view
@@ -37,24 +37,24 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead
             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" class="px-6 py-3 w-2">Pl.</th>
-              <th scope="col" class="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
-                Name
-              </th>
-              <th scope="col" class="px-6 py-3 w-4 text-gray-900 whitespace-nowrap dark:text-white">
-                Punkte
-              </th>
-              <th scope="col" class="px-6 py-3 w-4 text-gray-900 whitespace-nowrap dark:text-white">
-                Elo
-              </th>
-              <th scope="col" class="px-6 py-3 w-4">SP</th>
-              <th scope="col" class="px-6 py-3 w-4">S</th>
-              <th scope="col" class="px-6 py-3 w-4">N</th>
-              <th scope="col" class="px-6 py-3 w-28">Tore</th>
-              <th scope="col" class="px-6 py-3 w-4">Diff</th>
-              <th scope="col" class="px-6 py-3 w-4">Ratio</th>
-            </tr>
+          <tr>
+            <th scope="col" class="px-6 py-3 w-2">Pl.</th>
+            <th scope="col" class="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">
+              Name
+            </th>
+            <th scope="col" class="px-6 py-3 w-4 text-gray-900 whitespace-nowrap dark:text-white">
+              Punkte
+            </th>
+            <th scope="col" class="px-6 py-3 w-4 text-gray-900 whitespace-nowrap dark:text-white">
+              Elo
+            </th>
+            <th scope="col" class="px-6 py-3 w-4">SP</th>
+            <th scope="col" class="px-6 py-3 w-4">S</th>
+            <th scope="col" class="px-6 py-3 w-4">N</th>
+            <th scope="col" class="px-6 py-3 w-28">Tore</th>
+            <th scope="col" class="px-6 py-3 w-4">Diff</th>
+            <th scope="col" class="px-6 py-3 w-4">Ratio</th>
+          </tr>
           </thead>
           <tbody>
             @for (player of dataService.players$(); track $index) {
@@ -73,8 +73,7 @@
                 </th>
                 <td
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-2">
-                  <img [src]="player.imageUrl ?? 'img/demoavatar.jpg'" class="h-8 w-8" />
-                  {{ player.imageUrl }}
+                  <img [src]="player.imageUrl ?? 'img/logo.png'" class="h-8 w-8" />
                   {{ player.name }}
                 </td>
                 <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
