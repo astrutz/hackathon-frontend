@@ -60,6 +60,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
             placeholder="0"
             min="0"
+            max="20"
             step="1"
             required />
         </div>
@@ -77,6 +78,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
             placeholder="0"
             min="0"
+            max="20"
             step="1"
             required />
         </div>
@@ -95,10 +97,10 @@
       </div>
       <button
         type="submit"
-        [disabled]="!singleFormGroup.valid"
+        [disabled]="!isSingleValid"
         [ngClass]="{
           'cursor-not-allowed !hover:bg-gray-400 !dark:bg-gray-400 !bg-gray-400':
-            !singleFormGroup.valid,
+            !isSingleValid,
         }"
         class="max-w-2xl text-white bg-primary-400 hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-400 dark:hover:bg-primary-300 dark:focus:ring-primary-500">
         Speichern
@@ -143,8 +145,8 @@
             aria-describedby="helper-text-explanation"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
             placeholder="0"
-            max="10"
             min="0"
+            max="20"
             step="1"
             required />
         </div>
@@ -161,8 +163,8 @@
             aria-describedby="helper-text-explanation"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
             placeholder="0"
-            max="10"
             min="0"
+            max="20"
             step="1"
             required />
         </div>
@@ -191,10 +193,10 @@
 
       <button
         type="submit"
-        [disabled]="!doubleFormGroup.valid"
+        [disabled]="!isDoubleValid"
         [ngClass]="{
           'cursor-not-allowed !hover:bg-gray-400 !dark:bg-gray-400 !bg-gray-400':
-            !doubleFormGroup.valid,
+            !isDoubleValid,
         }"
         class="max-w-2xl text-white bg-primary-400 hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-400 dark:hover:bg-primary-300 dark:focus:ring-primary-500">
         Speichern

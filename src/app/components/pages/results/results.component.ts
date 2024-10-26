@@ -96,10 +96,10 @@ export class ResultsComponent implements AfterViewInit {
   async submitGame(is1v1: boolean): Promise<void> {
     if (is1v1) {
       let rawData = this.singleFormGroup.getRawValue();
-      if (this.singleFormGroup.valid && rawData.player1 && rawData.player2) {
+      if (this.isSingleValid) {
         const game: Game = {
-          team1Players: [rawData.player1],
-          team2Players: [rawData.player2],
+          team1Players: [rawData.player1!],
+          team2Players: [rawData.player2!],
           scoreTeam1: rawData.scoreTeam1!,
           scoreTeam2: rawData.scoreTeam2!,
           timestamp: rawData.timestamp!,
@@ -112,11 +112,7 @@ export class ResultsComponent implements AfterViewInit {
       }
     } else {
       let rawData = this.doubleFormGroup.getRawValue();
-      if (
-        this.doubleFormGroup.valid &&
-        (rawData.player1 || rawData.player2) &&
-        (rawData.player3 || rawData.player4)
-      ) {
+      if (this.isDoubleValid) {
         const team1Players = [];
         if (rawData.player1) {
           team1Players.push(rawData.player1);
@@ -145,5 +141,32 @@ export class ResultsComponent implements AfterViewInit {
         this.doubleFormGroup.reset();
       }
     }
+  }
+
+  get isSingleValid() {
+    let rawData = this.singleFormGroup.getRawValue();
+    return (
+      this.singleFormGroup.valid &&
+      rawData.player1 &&
+      rawData.player2 &&
+      rawData.player1 !== rawData.player2 &&
+      ((rawData.scoreTeam1 ?? 0) > 0 || (rawData.scoreTeam2 ?? 0) > 0)
+    );
+  }
+
+  get isDoubleValid() {
+    let rawData = this.doubleFormGroup.getRawValue();
+    return (
+      this.doubleFormGroup.valid &&
+      (rawData.player1 || rawData.player2) &&
+      (rawData.player3 || rawData.player4) &&
+      rawData.player1 !== rawData.player2 &&
+      rawData.player1 !== rawData.player3 &&
+      rawData.player1 !== rawData.player4 &&
+      rawData.player2 !== rawData.player3 &&
+      rawData.player2 !== rawData.player4 &&
+      rawData.player3 !== rawData.player4 &&
+      ((rawData.scoreTeam1 ?? 0) > 0 || (rawData.scoreTeam2 ?? 0) > 0)
+    );
   }
 }

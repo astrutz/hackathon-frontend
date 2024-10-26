@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from '../../../services/data.service';
 import { NgClass } from '@angular/common';
