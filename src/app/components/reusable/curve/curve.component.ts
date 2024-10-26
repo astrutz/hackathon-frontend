@@ -138,7 +138,7 @@ export class CurveComponent {
             : Math.min(...result.history.map((r) => r.billo)),
         ),
     );
-    return Math.floor(lowest * 0.95);
+    return lowest > 0 ? Math.floor(lowest * 0.95) : Math.floor(lowest * 1.05);
   }
 
   getHighestCount(isElo: boolean) {
