@@ -21,7 +21,10 @@ export class DataService {
     data: [],
     loadingState: 'loading',
   });
-  public history$: WritableSignal<PlayerHistory[]> = signal([]);
+  public history$: WritableSignal<APIData<PlayerHistory[]>> = signal({
+    data: [],
+    loadingState: 'loading',
+  });
 
   public sortType$ = signal('');
   public calendarWeek$ = signal(this.weekNumber);
@@ -49,11 +52,21 @@ export class DataService {
   }
 
   public loadPlayerHistory() {
-    this.history$.set([]);
+    this.history$.set({
+      data: [],
+      loadingState: 'loading',
+    });
+    let loaded = 0;
     this.players$().data.forEach((player) => {
       this._requestService.getHistory(player.id).then((history) => {
         this.history$.update((oldHistory) => {
-          return [...oldHistory, { name: player.name, history }];
+          loaded++;
+          oldHistory.data.push({ name: player.name, history });
+          if (loaded === this.players$().data.length) {
+            oldHistory.loadingState = 'success';
+            return oldHistory;
+          }
+          return oldHistory;
         });
       });
     });

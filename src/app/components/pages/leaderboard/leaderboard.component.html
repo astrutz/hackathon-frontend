@@ -1,6 +1,6 @@
 <h1 class="text-2xl font-semibold text-center lg:mt-4 mt-2 mb-4 lg:mb-8">Leaderboard</h1>
 
-@if (dataService.players$().loadingState === 'success') {
+@if (dataService.players$().loadingState === 'success' && dataService.history$().loadingState === 'success') {
   @if (dataService.players$().data.length > 0) {
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div

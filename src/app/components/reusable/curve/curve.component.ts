@@ -1,11 +1,12 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from '../../../services/data.service';
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'kickathon-curve',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './curve.component.html',
   styleUrl: './curve.component.scss',
 })
@@ -51,7 +52,7 @@ export class CurveComponent {
 
   createChart(): void {
     this.generateChartColors();
-    const datasets = this.dataService.history$().map((result, i) => ({
+    const datasets = this.dataService.history$().data.map((result, i) => ({
       label: result.name ?? '',
       data: result.history.map((r) => (this.dataService.sortType$() === 'elo' ? r.elo : r.billo)),
       borderColor: this.chartColors![i],
@@ -63,8 +64,8 @@ export class CurveComponent {
       type: 'line',
       data: {
         labels: this.dataService
-          .history$()?.[0]
-          ?.history.map((result) => `${result.year}/${result.week}`), // todo: longest history
+          .history$()
+          ?.data?.[0]?.history.map((result) => `${result.year}/${result.week}`), // todo: longest history
         datasets,
       },
       options: {
@@ -131,7 +132,7 @@ export class CurveComponent {
     const lowest = Math.min(
       ...this.dataService
         .history$()
-        .map((result) =>
+        .data.map((result) =>
           isElo
             ? Math.min(...result.history.map((r) => r.elo))
             : Math.min(...result.history.map((r) => r.billo)),
@@ -144,7 +145,7 @@ export class CurveComponent {
     const highest = Math.max(
       ...this.dataService
         .history$()
-        .map((result) =>
+        .data.map((result) =>
           isElo
             ? Math.max(...result.history.map((r) => r.elo))
             : Math.max(...result.history.map((r) => r.billo)),
@@ -157,7 +158,7 @@ export class CurveComponent {
     if (!this.chartColors) {
       this.chartColors = this.dataService
         .history$()
-        .map(
+        .data.map(
           (_, i) =>
             `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`,
         );
