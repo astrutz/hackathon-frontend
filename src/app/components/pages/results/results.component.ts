@@ -33,10 +33,10 @@ export class ResultsComponent implements AfterViewInit {
 
   protected doubleFormGroup = new FormGroup({
     timestamp: new FormControl(new Date().toISOString(), [Validators.required]),
-    player1: new FormControl(0, [Validators.required, Validators.min(1)]),
-    player2: new FormControl(0, [Validators.required, Validators.min(1)]),
-    player3: new FormControl(0, [Validators.required, Validators.min(1)]),
-    player4: new FormControl(0, [Validators.required, Validators.min(1)]),
+    player1: new FormControl(0, []),
+    player2: new FormControl(0, []),
+    player3: new FormControl(0, []),
+    player4: new FormControl(0, []),
     scoreTeam1: new FormControl(0, [Validators.required]),
     scoreTeam2: new FormControl(0, [Validators.required]),
   });
@@ -107,14 +107,26 @@ export class ResultsComponent implements AfterViewInit {
       let rawData = this.doubleFormGroup.getRawValue();
       if (
         this.doubleFormGroup.valid &&
-        rawData.player1 &&
-        rawData.player2 &&
-        rawData.player3 &&
-        rawData.player4
+        (rawData.player1 || rawData.player2) &&
+        (rawData.player3 || rawData.player4)
       ) {
+        const team1Players = [];
+        if (rawData.player1) {
+          team1Players.push(rawData.player1);
+        }
+        if (rawData.player2) {
+          team1Players.push(rawData.player2);
+        }
+        const team2Players = [];
+        if (rawData.player3) {
+          team2Players.push(rawData.player3);
+        }
+        if (rawData.player4) {
+          team2Players.push(rawData.player4);
+        }
         const game: Game = {
-          team1Players: [rawData.player1, rawData.player2],
-          team2Players: [rawData.player3, rawData.player4],
+          team1Players,
+          team2Players,
           scoreTeam1: rawData.scoreTeam1!,
           scoreTeam2: rawData.scoreTeam2!,
           timestamp: rawData.timestamp!,
