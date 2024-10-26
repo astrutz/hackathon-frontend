@@ -1,30 +1,36 @@
-import {Component, inject, Input} from '@angular/core';
-import {Game} from "../../../data/game.data";
-import {DataService} from "../../../services/data.service";
+import { Component, inject, Input } from '@angular/core';
+import { Game } from '../../../data/game.data';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'kickathon-fixture',
   standalone: true,
   imports: [],
   templateUrl: './fixture.component.html',
-  styleUrl: './fixture.component.scss'
+  styleUrl: './fixture.component.scss',
 })
 export class FixtureComponent {
   dataService = inject(DataService);
 
-  @Input({required: true})
+  @Input({ required: true })
   game!: Game;
 
   get player1(): string {
     if (this.is1v1A) {
-      return this.dataService.getPlayerById(this.game.team1Players?.[0])?.name ?? '[Deaktivierter Nutzer]';
+      return (
+        this.dataService.getPlayerById(this.game.team1Players?.[0])?.name ??
+        '[Deaktivierter Nutzer]'
+      );
     }
     return `${this.dataService.getPlayerById(this.game.team1Players?.[0])?.name ?? '[Deaktivierter Nutzer]'} & ${this.dataService.getPlayerById(this.game.team1Players?.[1])?.name ?? '[Deaktivierter Nutzer]'}`;
   }
 
   get player2(): string {
     if (this.is1v1B) {
-      return this.dataService.getPlayerById(this.game.team2Players?.[0])?.name ?? '[Deaktivierter Nutzer]';
+      return (
+        this.dataService.getPlayerById(this.game.team2Players?.[0])?.name ??
+        '[Deaktivierter Nutzer]'
+      );
     }
     return `${this.dataService.getPlayerById(this.game.team2Players?.[0])?.name ?? '[Deaktivierter Nutzer]'} & ${this.dataService.getPlayerById(this.game.team2Players?.[1])?.name ?? '[Deaktivierter Nutzer]'}`;
   }
