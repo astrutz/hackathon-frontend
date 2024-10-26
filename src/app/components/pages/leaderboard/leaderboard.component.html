@@ -1,4 +1,4 @@
-<h1 class="text-2xl font-semibold text-center mt-4 mb-8">Leaderboard</h1>
+<h1 class="text-2xl font-semibold text-center lg:mt-4 mt-2 mb-4 lg:mb-8">Leaderboard</h1>
 
 @if (dataService.players$()) {
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -6,14 +6,14 @@
       class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
       <form class="max-w-sm">
         <label for="sort" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Punktesystem</label
+          >Sortieren nach</label
         >
         <select
           #sort
           (change)="onSortChange($event, sort.value)"
           id="sort"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected value="">Standard</option>
+          <option selected value="">Punkte</option>
           <option value="elo">Elo</option>
         </select>
       </form>
@@ -26,7 +26,7 @@
           (change)="onViewChange($event, view.value)"
           id="view"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected value="default">Standard</option>
+          <option selected value="default">Tabelle</option>
           <option value="curve">Formkurve</option>
         </select>
       </form>
@@ -38,14 +38,14 @@
           class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3 w-2">Pl.</th>
-            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3 text-gray-900 whitespace-nowrap dark:text-white">Name</th>
+            <th scope="col" class="px-6 py-3 w-4 text-gray-900 whitespace-nowrap dark:text-white">Punkte</th>
+            <th scope="col" class="px-6 py-3 w-4 text-gray-900 whitespace-nowrap dark:text-white">Elo</th>
             <th scope="col" class="px-6 py-3 w-4">SP</th>
             <th scope="col" class="px-6 py-3 w-4">S</th>
             <th scope="col" class="px-6 py-3 w-4">N</th>
             <th scope="col" class="px-6 py-3 w-28">Tore</th>
             <th scope="col" class="px-6 py-3 w-4">Diff</th>
-            <th scope="col" class="px-6 py-3 w-4">Punkte</th>
-            <th scope="col" class="px-6 py-3 w-4">Elo</th>
           </tr>
         </thead>
         <tbody>
@@ -68,17 +68,17 @@
                 <img src="img/logo.png" class="h-8 w-8" />
                 {{ player.name }}
               </td>
-              <td class="px-6 py-4">{{ player.games?.length ?? 0 }}</td>
-              <td class="px-6 py-4">{{ player.won ?? 0 }}</td>
-              <td class="px-6 py-4">{{ player.lost ?? 0 }}</td>
-              <td class="px-6 py-4">{{ getGoals(player) }}</td>
-              <td class="px-6 py-4">{{ getGoalDifference(player) }}</td>
               <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                 {{ player.scores?.billo ?? 0 }}
               </td>
               <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                 {{ player.scores?.elo ?? 0 }}
               </td>
+              <td class="px-6 py-4">{{ player.games?.length ?? 0 }}</td>
+              <td class="px-6 py-4">{{ player.won ?? 0 }}</td>
+              <td class="px-6 py-4">{{ player.lost ?? 0 }}</td>
+              <td class="px-6 py-4">{{ getGoals(player) }}</td>
+              <td class="px-6 py-4">{{ getGoalDifference(player) }}</td>
             </tr>
           }
         </tbody>
