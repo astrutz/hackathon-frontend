@@ -12,12 +12,13 @@ import {
 } from '@angular/forms';
 import { Game } from '../../../data/game.data';
 import { NgClass } from '@angular/common';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
+import { LoadingSpinnerComponent } from '../../reusable/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'kickathon-results',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgClass],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, LoadingSpinnerComponent],
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss',
 })
@@ -44,7 +45,7 @@ export class ResultsComponent implements AfterViewInit {
     scoreTeam2: new FormControl(0, [Validators.required]),
   });
 
-  isSent: boolean = false;
+  state: 'idle' | 'sending' | 'sent' = 'idle';
 
   @ViewChild('defaultTab') tabElement!: ElementRef;
 
@@ -103,8 +104,11 @@ export class ResultsComponent implements AfterViewInit {
           scoreTeam2: rawData.scoreTeam2!,
           timestamp: rawData.timestamp!,
         };
+        this.state = 'sending';
         await this.requestService.postGame(game);
-        this.isSent = true;
+        this.state = 'sent';
+        this.singleFormGroup.reset();
+        this.doubleFormGroup.reset();
       }
     } else {
       let rawData = this.doubleFormGroup.getRawValue();
@@ -134,15 +138,12 @@ export class ResultsComponent implements AfterViewInit {
           scoreTeam2: rawData.scoreTeam2!,
           timestamp: rawData.timestamp!,
         };
+        this.state = 'sending';
         await this.requestService.postGame(game);
-        this.onSuccess();
+        this.state = 'sent';
+        this.singleFormGroup.reset();
+        this.doubleFormGroup.reset();
       }
     }
-  }
-
-  onSuccess(): void {
-    this.isSent = true;
-    this.singleFormGroup.reset();
-    this.doubleFormGroup.reset();
   }
 }
