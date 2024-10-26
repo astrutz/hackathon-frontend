@@ -2,6 +2,7 @@ import { Injectable, isDevMode } from '@angular/core';
 import { Player } from '../data/player.data';
 import axios from 'axios';
 import { Game } from '../data/game.data';
+import { RegisterData } from '../data/register.data';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,6 @@ export class RequestService {
     }
     return (await axios.get(`${this.host}/players`)).data;
   }
-
 
   async getPlayer(id: string): Promise<Player> {
     return (await axios.get(`${this.host}/players/${id}`)).data;
@@ -51,5 +51,13 @@ export class RequestService {
 
   async deleteGame(id: string): Promise<void> {
     await axios.delete(`${this.host}/games/${id}`);
+  }
+
+  async login(data: any): Promise<any> {
+    return (await axios.post(`${this.host}/auth/login`, data)).data;
+  }
+
+  async register(data: RegisterData): Promise<any> {
+    return (await axios.post(`${this.host}/auth/register`, data)).data;
   }
 }

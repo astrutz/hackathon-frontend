@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {RequestService} from "../../services/request.service";
 
 @Component({
   selector: 'kickathon-register',
@@ -16,7 +17,8 @@ export class RegisterComponent {
 
   public errors: any;
   public success: boolean = false;
-  private _userService: UserService = inject(UserService);
+  private requestService: RequestService = inject(RequestService);
+
   private router: Router = inject(Router);
   private fb: FormBuilder = inject(FormBuilder);
 
@@ -39,7 +41,7 @@ export class RegisterComponent {
   }
 
   onRegister(): void {
-    this._userService.register(this.registerForm.getRawValue())
+    this.requestService.register(this.registerForm.getRawValue())
       .then(() => {
         this.registerForm.reset();
         this.errors = null;

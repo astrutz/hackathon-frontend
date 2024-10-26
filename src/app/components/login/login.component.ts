@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import {RequestService} from "../../services/request.service";
 
 @Component({
   selector: 'kickathon-login',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   public errors: any;
+  private requestService: RequestService = inject(RequestService);
   private _userService: UserService = inject(UserService);
   private router: Router = inject(Router);
   private fb: FormBuilder = inject(FormBuilder);
@@ -30,7 +32,7 @@ export class LoginComponent {
   }
 
   onLogin(): void {
-    this._userService
+    this.requestService
       .login(this.loginForm.getRawValue())
       .then((token) => {
         this._userService.setToken(token);
