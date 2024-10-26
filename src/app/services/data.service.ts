@@ -34,7 +34,9 @@ export class DataService {
         .then((players) => {
           this.players$.set(players);
           this.playersLoadingState$.set('success');
-          this.loadPlayerHistory();
+          if (this.historyLoadingState$() === 'loading') {
+            this.loadPlayerHistory();
+          }
         });
     });
     effect(() => {
