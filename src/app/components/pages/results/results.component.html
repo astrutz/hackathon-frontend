@@ -29,7 +29,7 @@
           <select id="playerOne"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected>Spieler 1</option>
-            @for (player of dataService.players; track $index) {
+            @for (player of dataService.players$(); track $index) {
               <option value="{{ player.id }}">{{ player.name }}</option>
             }
           </select>
@@ -61,7 +61,7 @@
           <select id="countries"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option selected>Spieler 2</option>
-            @for (player of dataService.players; track $index) {
+            @for (player of dataService.players$(); track $index) {
               <option value="{{ player.id }}">{{ player.name }}</option>
             }
           </select>
@@ -87,7 +87,7 @@
         <select id="team-one-playerOne"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Spieler 1</option>
-          @for (player of dataService.players; track $index) {
+          @for (player of dataService.players$(); track $index) {
             <option value="{{ player.id }}">{{ player.name }}</option>
           }
         </select>
@@ -97,7 +97,7 @@
         <select id="team-one-playerTwo"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Spieler 1</option>
-          @for (player of dataService.players; track $index) {
+          @for (player of dataService.players$(); track $index) {
             <option value="{{ player.id }}">{{ player.name }}</option>
           }
         </select>
@@ -130,7 +130,7 @@
         <select id="team-two-playerOne"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Spieler 1</option>
-          @for (player of dataService.players; track $index) {
+          @for (player of dataService.players$(); track $index) {
             <option value="{{ player.id }}">{{ player.name }}</option>
           }
         </select>
@@ -141,7 +141,7 @@
         <select id="team-two-playerTwo"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option selected>Spieler 1</option>
-          @for (player of dataService.players; track $index) {
+          @for (player of dataService.players$(); track $index) {
             <option value="{{ player.id }}">{{ player.name }}</option>
           }
 

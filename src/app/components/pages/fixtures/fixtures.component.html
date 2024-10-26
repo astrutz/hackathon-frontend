@@ -19,7 +19,7 @@
   </div>
 
   <div class="flex flex-col gap-8">
-    @for(game of dataService.games; track game.id) {
+    @for(game of dataService.games$(); track game.id) {
       <kickathon-fixture [game]="game"></kickathon-fixture>
     }
   </div>
