@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from '../../../services/data.service';
 
@@ -15,12 +15,38 @@ export class CurveComponent {
   chartColors: string[] | null = null;
   formCurveChart!: Chart;
 
+  lightModeColors = {
+    text: '#374151',
+    grid: '#E5E7EB',
+    ticks: '#6B7280',
+    background: 'rgba(75, 192, 192, 0.2)',
+    border: 'rgba(75, 192, 192, 1)',
+    legendText: '#374151',
+  };
+
+  darkModeColors = {
+    text: '#D1D5DB',
+    grid: '#4B5563',
+    ticks: '#9CA3AF',
+    background: 'rgba(255, 255, 255, 0.2)',
+    border: 'rgba(255, 255, 255, 1)',
+    legendText: '#D1D5DB',
+  };
+
+  currentColors = this.lightModeColors;
+
   constructor() {
+    this.detectColorScheme();
     effect(() => {
       const existing_chart = Chart.getChart('curve');
       existing_chart?.destroy();
       this.createChart();
     });
+  }
+
+  detectColorScheme() {
+    const darkModeOn = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    this.currentColors = darkModeOn ? this.darkModeColors : this.lightModeColors;
   }
 
   createChart(): void {
@@ -36,7 +62,9 @@ export class CurveComponent {
     this.formCurveChart = new Chart('curve', {
       type: 'line',
       data: {
-        labels: this.dataService.history$()?.[0]?.history.map((result) => `${result.year}/${result.week}`), // todo: longest history
+        labels: this.dataService
+          .history$()?.[0]
+          ?.history.map((result) => `${result.year}/${result.week}`), // todo: longest history
         datasets,
       },
       options: {
@@ -46,6 +74,20 @@ export class CurveComponent {
             title: {
               display: true,
               text: 'Spieltag',
+              padding: 16,
+              color: this.currentColors.text,
+              font: {
+                size: 14,
+              },
+            },
+            ticks: {
+              color: this.currentColors.ticks,
+              font: {
+                size: 12,
+              },
+            },
+            grid: {
+              color: this.currentColors.grid,
             },
           },
           y: {
@@ -53,7 +95,31 @@ export class CurveComponent {
             max: this.getHighestCount(this.dataService.sortType$() === 'elo'),
             title: {
               display: true,
-              text: 'Elo',
+              text: 'Punkte',
+              padding: 16,
+              color: this.currentColors.text,
+              font: {
+                size: 14,
+              },
+            },
+            ticks: {
+              color: this.currentColors.ticks,
+              font: {
+                size: 12,
+              },
+            },
+            grid: {
+              color: this.currentColors.grid,
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            labels: {
+              color: this.currentColors.legendText,
+              font: {
+                size: 14,
+              },
             },
           },
         },
@@ -63,28 +129,38 @@ export class CurveComponent {
 
   getSmallestCount(isElo: boolean) {
     const lowest = Math.min(
-      ...this.dataService.history$().map((result) =>
-        isElo ? Math.min(...result.history.map((r) => r.elo)) : Math.min(...result.history.map((r) => r.billo)),
-      ),
+      ...this.dataService
+        .history$()
+        .map((result) =>
+          isElo
+            ? Math.min(...result.history.map((r) => r.elo))
+            : Math.min(...result.history.map((r) => r.billo)),
+        ),
     );
     return Math.floor(lowest * 0.95);
   }
 
   getHighestCount(isElo: boolean) {
     const highest = Math.max(
-      ...this.dataService.history$().map((result) =>
-        isElo ? Math.max(...result.history.map((r) => r.elo)) : Math.max(...result.history.map((r) => r.billo)),
-      ),
+      ...this.dataService
+        .history$()
+        .map((result) =>
+          isElo
+            ? Math.max(...result.history.map((r) => r.elo))
+            : Math.max(...result.history.map((r) => r.billo)),
+        ),
     );
     return Math.ceil(highest * 1.05);
   }
 
-
-  generateChartColors(): void{
-    if(!this.chartColors) {
-      this.chartColors = this.dataService.history$().map((_, i) =>
-        `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
-      );
+  generateChartColors(): void {
+    if (!this.chartColors) {
+      this.chartColors = this.dataService
+        .history$()
+        .map(
+          (_, i) =>
+            `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`,
+        );
     }
   }
 }
