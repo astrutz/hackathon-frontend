@@ -8,16 +8,16 @@ import axios from 'axios';
 })
 export class UserService {
 
-  private host: '/api';
+  private host= '/api';
 
   private router: Router = inject(Router);
   private jwtHelper: JwtHelperService = inject(JwtHelperService);
 
-  public login(data: any): Promise<any> {
+  public async login(data: any): Promise<any> {
     return (await axios.post(`${this.host}/auth/login`, data)).data;
   }
 
-  public register(data: any): Promise<any> {
+  public async register(data: any): Promise<any> {
     return (await axios.post(`${this.host}/auth/register`, data)).data
   }
 

@@ -1,17 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'kickathon-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
   public errors: any;
   private _userService: UserService = inject(UserService);
   private router: Router = inject(Router);
@@ -31,12 +30,14 @@ export class LoginComponent {
   }
 
   onLogin(): void {
-    this._userService.login(this.loginForm.value).then((token) => {
-      this._userService.setToken(token);
-      this.router.navigate(['leaderboard']);
-    }).catch((errors) => {
-      this.errors = errors;
-    });
+    this._userService
+      .login(this.loginForm.value)
+      .then((token) => {
+        this._userService.setToken(token);
+        this.router.navigate(['leaderboard']);
+      })
+      .catch((errors) => {
+        this.errors = errors;
+      });
   }
-
 }
