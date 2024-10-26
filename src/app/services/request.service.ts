@@ -10,7 +10,7 @@ export class RequestService {
   private host = '/api';
 
   async getPlayers(): Promise<Player[]> {
-    return (await axios.get(`/api/players`)).data;
+    return (await axios.get(`${this.host}/players`)).data;
   }
 
   async getPlayer(id: string): Promise<Player> {
