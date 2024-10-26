@@ -46,6 +46,7 @@
             <th scope="col" class="px-6 py-3 w-4">N</th>
             <th scope="col" class="px-6 py-3 w-28">Tore</th>
             <th scope="col" class="px-6 py-3 w-4">Diff</th>
+            <th scope="col" class="px-6 py-3 w-4">Ratio</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +80,7 @@
               <td class="px-6 py-4">{{ player.lost ?? 0 }}</td>
               <td class="px-6 py-4">{{ getGoals(player) }}</td>
               <td class="px-6 py-4">{{ getGoalDifference(player) }}</td>
+              <td class="px-6 py-4">{{ getWinRatio(player) }}</td>
             </tr>
           }
         </tbody>

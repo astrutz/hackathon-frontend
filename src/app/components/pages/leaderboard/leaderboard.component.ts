@@ -4,7 +4,7 @@ import { NgClass } from '@angular/common';
 import { Player } from '../../../data/player.data';
 import { Game } from '../../../data/game.data';
 import { players } from '../../../example/players.example';
-import {CurveComponent} from "../../reusable/curve/curve.component";
+import { CurveComponent } from '../../reusable/curve/curve.component';
 
 @Component({
   selector: 'kickathon-leaderboard',
@@ -23,6 +23,12 @@ export class LeaderboardComponent {
 
   getGoalDifference(player: Player): number {
     return this._getScoredGoals(player) - this._getConcededGoals(player);
+  }
+
+  getWinRatio(player: Player): string {
+    const ratio =
+      player.games?.length && player.won ? (player.games!.length / player.won) * 100 : 0;
+    return `${Math.round(ratio)}%`;
   }
 
   private _getScoredGoals(player: Player): number {
