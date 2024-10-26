@@ -17,7 +17,10 @@ export class DataService {
     data: [],
     loadingState: 'loading',
   });
-  public games$: WritableSignal<Game[]> = signal([]);
+  public games$: WritableSignal<APIData<Game[]>> = signal({
+    data: [],
+    loadingState: 'loading',
+  });
   public history$: WritableSignal<PlayerHistory[]> = signal([]);
 
   public sortType$ = signal('');
@@ -36,7 +39,7 @@ export class DataService {
     });
     effect(() => {
       this._requestService.getGames(this.calendarWeek$(), this.calendarYear$()).then((games) => {
-        this.games$.set(games);
+        this.games$.set({ data: games, loadingState: 'success' });
       });
     });
   }

@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { FixtureComponent } from '../../reusable/fixture/fixture.component';
+import {LoadingSpinnerComponent} from "../../reusable/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'kickathon-fixtures',
   standalone: true,
-  imports: [FixtureComponent],
+  imports: [FixtureComponent, LoadingSpinnerComponent],
   templateUrl: './fixtures.component.html',
   styleUrl: './fixtures.component.scss',
 })
