@@ -33,7 +33,7 @@ export class RequestService {
     await axios.delete(`${this.host}/players/${id}`);
   }
 
-  async getGames(year: number, week: number): Promise<Game[]> {
+  async getGames(week: number, year: number): Promise<Game[]> {
     return (await axios.get(`${this.host}/games?week=${week}&year=${year}`)).data;
   }
 
