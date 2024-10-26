@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Player } from '../data/player.data';
 import axios from 'axios';
 import { Game } from '../data/game.data';
@@ -7,11 +7,15 @@ import { Game } from '../data/game.data';
   providedIn: 'root',
 })
 export class RequestService {
-  private host = '/api';
+  private host = isDevMode() ? '/api' : 'https://handsome-petra-kickathon-de3bbbf4.koyeb.app';
 
-  async getPlayers(): Promise<Player[]> {
+  async getPlayers(type?: string): Promise<Player[]> {
+    if (type) {
+      return (await axios.get(`${this.host}/players?sort=${type}`)).data;
+    }
     return (await axios.get(`${this.host}/players`)).data;
   }
+
 
   async getPlayer(id: string): Promise<Player> {
     return (await axios.get(`${this.host}/players/${id}`)).data;
@@ -29,8 +33,8 @@ export class RequestService {
     await axios.delete(`${this.host}/players/${id}`);
   }
 
-  async getGames(): Promise<Game[]> {
-    return (await axios.get(`${this.host}/games`)).data;
+  async getGames(week: number, year: number): Promise<Game[]> {
+    return (await axios.get(`${this.host}/games?week=${week}&year=${year}`)).data;
   }
 
   async getGame(id: string): Promise<Game> {

@@ -26,28 +26,30 @@ export class LeaderboardComponent {
   private _getScoredGoals(player: Player): number {
     return (
       player.games?.map((game: Game) => {
-        if (game.players[0] === player.id || game.players[2] === player.id) {
-          return game.score1;
-        } else if (game.players[1] === player.id || game.players[3] === player.id) {
-          return game.score2;
+        if (game.team1Players[0] === player.id || game.team1Players[1] === player.id) {
+          return game.scoreTeam1;
+        } else if (game.team2Players[0] === player.id || game.team2Players[1] === player.id) {
+          return game.scoreTeam2;
         }
         return 0;
       }) ?? []
-    ).reduce((a, b) => a + b, 0);
+    ).reduce((a, b) => a + b, 0) ?? 0;
   }
 
   private _getConcededGoals(player: Player): number {
     return (
       player.games?.map((game: Game) => {
-        if (game.players[0] === player.id || game.players[2] === player.id) {
-          return game.score2;
-        } else if (game.players[1] === player.id || game.players[3] === player.id) {
-          return game.score1;
+        if (game.team1Players[0] === player.id || game.team1Players[1] === player.id) {
+          return game.scoreTeam2;
+        } else if (game.team2Players[0] === player.id || game.team2Players[1] === player.id) {
+          return game.scoreTeam1;
         }
         return 0;
       }) ?? []
-    ).reduce((a, b) => a + b, 0);
+    ).reduce((a, b) => a + b, 0) ?? 0;
   }
 
-  protected readonly players = players;
+  onChange(event: Event, value: string): void {
+    this.dataService.sortType$.set(value);
+  }
 }

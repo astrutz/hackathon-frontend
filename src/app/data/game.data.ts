@@ -1,7 +1,8 @@
 export type Game = {
-  id: string;
-  timestamp: number;
-  players: string[];
-  score1: number;
-  score2: number;
+  id?: number;
+  timestamp: string;
+  team1Players: number[];
+  team2Players: number[];
+  scoreTeam1: number;
+  scoreTeam2: number;
 };
