@@ -5,12 +5,14 @@ import { RequestService } from '../../../services/request.service';
 import {
   FormControl,
   FormGroup,
+  FormGroupDirective,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Game } from '../../../data/game.data';
 import { NgClass } from '@angular/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'kickathon-results',
@@ -22,6 +24,7 @@ import { NgClass } from '@angular/common';
 export class ResultsComponent implements AfterViewInit {
   protected dataService: DataService = inject(DataService);
   protected requestService: RequestService = inject(RequestService);
+  protected router: Router = inject(Router);
 
   protected singleFormGroup = new FormGroup({
     timestamp: new FormControl(new Date().toISOString(), [Validators.required]),
@@ -132,8 +135,14 @@ export class ResultsComponent implements AfterViewInit {
           timestamp: rawData.timestamp!,
         };
         await this.requestService.postGame(game);
-        this.isSent = true;
+        this.onSuccess();
       }
     }
+  }
+
+  onSuccess(): void {
+    this.isSent = true;
+    this.singleFormGroup.reset();
+    this.doubleFormGroup.reset();
   }
 }

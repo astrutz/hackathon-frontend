@@ -5,11 +5,12 @@ import { Player } from '../../../data/player.data';
 import { Game } from '../../../data/game.data';
 import { players } from '../../../example/players.example';
 import { CurveComponent } from '../../reusable/curve/curve.component';
+import {LoadingSpinnerComponent} from "../../reusable/loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'kickathon-leaderboard',
   standalone: true,
-  imports: [NgClass, CurveComponent],
+  imports: [NgClass, CurveComponent, LoadingSpinnerComponent],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss',
 })
@@ -26,8 +27,7 @@ export class LeaderboardComponent {
   }
 
   getWinRatio(player: Player): string {
-    const ratio =
-      player.games?.length && player.won ? (player.games!.length / player.won) * 100 : 0;
+    const ratio = player.games?.length ? ((player.won ?? 0) / (player.games.length ?? 1)) * 100 : 0;
     return `${Math.round(ratio)}%`;
   }
 
