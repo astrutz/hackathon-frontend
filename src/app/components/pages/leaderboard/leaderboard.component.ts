@@ -48,4 +48,8 @@ export class LeaderboardComponent {
       }) ?? []
     ).reduce((a, b) => a + b, 0) ?? 0;
   }
+
+  onChange(event: Event, value: string): void {
+    this.dataService.changeGameType(value);
+  }
 }

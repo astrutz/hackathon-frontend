@@ -29,7 +29,10 @@ export class RequestService {
     await axios.delete(`${this.host}/players/${id}`);
   }
 
-  async getGames(): Promise<Game[]> {
+  async getGames(type?: string): Promise<Game[]> {
+    if (type) {
+      return (await axios.get(`${this.host}/games?sort=${type}`)).data;
+    }
     return (await axios.get(`${this.host}/games`)).data;
   }
 

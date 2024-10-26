@@ -23,4 +23,10 @@ export class DataService {
   public getPlayerById(id: number): Player | null {
     return this.players$().find((player) => player.id === id) ?? null;
   }
+
+  changeGameType(type?: string) {
+    this._requestService.getGames(type === '' ? undefined : type).then((games) => {
+      this.games$.set(games);
+    });
+  }
 }
