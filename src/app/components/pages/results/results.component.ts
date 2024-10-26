@@ -56,7 +56,7 @@ export class ResultsComponent implements AfterViewInit {
   options = {
     defaultTabId: 'settings',
     activeClasses:
-      'text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500',
+      'text-primary-500 hover:text-primary-400 dark:text-primary-300 dark:hover:text-primary-200 border-primary-500 dark:border-primary-400',
     inactiveClasses:
       'text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300',
   };
