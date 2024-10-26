@@ -53,11 +53,11 @@ export class RequestService {
     await axios.delete(`${this.host}/games/${id}`);
   }
 
-  async login(data: any): Promise<any> {
+  async login(data: any): Promise<string> {
     return (await axios.post(`${this.host}/auth/login`, data)).data;
   }
 
-  async register(data: RegisterData): Promise<any> {
+  async register(data: RegisterData): Promise<string> {
     return (await axios.post(`${this.host}/auth/register`, data)).data;
   }
 }
