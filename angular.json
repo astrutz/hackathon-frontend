@@ -68,8 +68,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "kickathon:build:production",
-              "proxyConfig": "src/proxy.conf.json"
+              "buildTarget": "kickathon:build:production"
             },
             "development": {
               "buildTarget": "kickathon:build:development",
