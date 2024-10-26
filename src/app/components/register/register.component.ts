@@ -1,31 +1,33 @@
 import { Component, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import {RequestService} from "../../services/request.service";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'kickathon-register',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-  ],
+  imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-
   public errors: any;
   public success: boolean = false;
   private requestService: RequestService = inject(RequestService);
 
   private router: Router = inject(Router);
-  private fb: FormBuilder = inject(FormBuilder);
 
-  registerForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
-    confirmPassword: ['', [Validators.required, Validators.minLength(4)]],
+  protected registerForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
   get email() {
@@ -40,18 +42,18 @@ export class RegisterComponent {
     return this.registerForm.get('confirmPassword');
   }
 
-  onRegister(): void {
-    this.requestService.register(this.registerForm.getRawValue())
-      .then(() => {
+  async onRegister(): Promise<void> {
+    if (this.registerForm.valid) {
+      try {
+        await this.requestService.register(this.registerForm.getRawValue());
         this.registerForm.reset();
         this.errors = null;
         this.success = true;
-        this.router.navigate(['login'])
-      })
-      .catch((errors) => {
-        this.errors = errors;
+        this.router.navigate(['']);
+      } catch (err) {
+        this.errors = err;
         this.success = false;
-      })
+      }
+    }
   }
-
 }

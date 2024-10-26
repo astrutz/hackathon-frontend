@@ -1,8 +1,14 @@
 import { Component, inject } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import {RequestService} from "../../services/request.service";
+import { RequestService } from '../../services/request.service';
 
 @Component({
   selector: 'kickathon-login',
@@ -16,11 +22,10 @@ export class LoginComponent {
   private requestService: RequestService = inject(RequestService);
   private _userService: UserService = inject(UserService);
   private router: Router = inject(Router);
-  private fb: FormBuilder = inject(FormBuilder);
 
-  loginForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
+  protected loginForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
   get name() {
@@ -31,15 +36,15 @@ export class LoginComponent {
     return this.loginForm.get('password');
   }
 
-  onLogin(): void {
-    this.requestService
-      .login(this.loginForm.getRawValue())
-      .then((token) => {
+  async onLogin(): Promise<void> {
+    if (this.loginForm.valid) {
+      try {
+        const token = await this.requestService.login(this.loginForm.getRawValue());
         this._userService.setToken(token);
-        this.router.navigate(['leaderboard']);
-      })
-      .catch((errors) => {
-        this.errors = errors;
-      });
+        this.router.navigate(['']);
+      } catch (err) {
+        this.errors = err;
+      }
+    }
   }
 }

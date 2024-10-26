@@ -1,5 +1,5 @@
 export type RegisterData = {
-  name: string;
-  password: string;
-  confirmPassword: string;
+  name: string | null;
+  password: string | null;
+  confirmPassword: string | null;
 };
