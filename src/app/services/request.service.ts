@@ -34,7 +34,7 @@ export class RequestService {
   }
 
   async getGames(year: number, week: number): Promise<Game[]> {
-    return (await axios.get(`${this.host}/games`)).data; // todo: add week and year
+    return (await axios.get(`${this.host}/games?week=${week}&year=${year}`)).data;
   }
 
   async getGame(id: string): Promise<Game> {
