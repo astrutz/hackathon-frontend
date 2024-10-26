@@ -12,32 +12,8 @@ import { DataService } from '../../../services/data.service';
 export class CurveComponent {
   protected dataService: DataService = inject(DataService);
 
+  chartColors: string[] | null = null;
   formCurveChart!: Chart;
-
-  // Beispielhafte Daten für 10 Spiele
-  results = [
-    [
-      { year: 2024, week: 42, elo: 1000, billo: 20 },
-      { year: 2024, week: 43, elo: 1005, billo: 22 },
-      { year: 2024, week: 44, elo: 980, billo: 19 },
-      { year: 2024, week: 45, elo: 1200, billo: 20 },
-      { year: 2024, week: 46, elo: 1103, billo: 24 },
-    ],
-    [
-      { year: 2024, week: 42, elo: 1000, billo: 20 },
-      { year: 2024, week: 43, elo: 1005, billo: 22 },
-      { year: 2024, week: 44, elo: 980, billo: 19 },
-      { year: 2024, week: 45, elo: 1200, billo: 20 },
-      { year: 2024, week: 46, elo: 1103, billo: 24 },
-    ],
-    [
-      { year: 2024, week: 42, elo: 1000, billo: 20 },
-      { year: 2024, week: 43, elo: 1005, billo: 22 },
-      { year: 2024, week: 44, elo: 980, billo: 19 },
-      { year: 2024, week: 45, elo: 1200, billo: 20 },
-      { year: 2024, week: 46, elo: 1103, billo: 24 },
-    ],
-  ]; // 1: Sieg, 0: Unentschieden, -1: Niederlage
 
   constructor() {
     effect(() => {
@@ -48,11 +24,11 @@ export class CurveComponent {
   }
 
   createChart(): void {
-    const datasets = this.results.map((result, i) => ({
-      label: 'Form Curve',
-      data: result.map((r) => (this.dataService.sortType$() === 'elo' ? r.elo : r.billo)),
-      borderColor: 'rgba(75, 192, 192, 1)',
-      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+    this.generateChartColors();
+    const datasets = this.dataService.history$().map((result, i) => ({
+      label: result.name ?? '',
+      data: result.history.map((r) => (this.dataService.sortType$() === 'elo' ? r.elo : r.billo)),
+      borderColor: this.chartColors![i],
       fill: false,
       tension: 0,
     }));
@@ -60,7 +36,7 @@ export class CurveComponent {
     this.formCurveChart = new Chart('curve', {
       type: 'line',
       data: {
-        labels: this.results[0].map((result) => `${result.year}/${result.week}`),
+        labels: this.dataService.history$()?.[0]?.history.map((result) => `${result.year}/${result.week}`), // todo: longest history
         datasets,
       },
       options: {
@@ -73,8 +49,8 @@ export class CurveComponent {
             },
           },
           y: {
-            min: this.dataService.sortType$() === 'elo' ? 900 : 15,
-            max: this.dataService.sortType$() === 'elo' ? 1300 : 30,
+            min: this.getSmallestCount(this.dataService.sortType$() === 'elo'),
+            max: this.getHighestCount(this.dataService.sortType$() === 'elo'),
             title: {
               display: true,
               text: 'Elo',
@@ -83,5 +59,32 @@ export class CurveComponent {
         },
       },
     });
+  }
+
+  getSmallestCount(isElo: boolean) {
+    const lowest = Math.min(
+      ...this.dataService.history$().map((result) =>
+        isElo ? Math.min(...result.history.map((r) => r.elo)) : Math.min(...result.history.map((r) => r.billo)),
+      ),
+    );
+    return Math.floor(lowest * 0.95);
+  }
+
+  getHighestCount(isElo: boolean) {
+    const highest = Math.max(
+      ...this.dataService.history$().map((result) =>
+        isElo ? Math.max(...result.history.map((r) => r.elo)) : Math.max(...result.history.map((r) => r.billo)),
+      ),
+    );
+    return Math.ceil(highest * 1.05);
+  }
+
+
+  generateChartColors(): void{
+    if(!this.chartColors) {
+      this.chartColors = this.dataService.history$().map((_, i) =>
+        `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
+      );
+    }
   }
 }

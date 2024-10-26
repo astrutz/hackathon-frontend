@@ -2,6 +2,7 @@ import { effect, inject, Injectable, signal, WritableSignal } from '@angular/cor
 import { Player } from '../data/player.data';
 import { Game } from '../data/game.data';
 import { RequestService } from './request.service';
+import { PlayerHistory } from '../data/history.data';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { RequestService } from './request.service';
 export class DataService {
   public players$: WritableSignal<Player[]> = signal([]);
   public games$: WritableSignal<Game[]> = signal([]);
+  public history$: WritableSignal<PlayerHistory[]> = signal([]);
 
   public sortType$ = signal('');
   public calendarWeek$ = signal(this.weekNumber);
@@ -21,6 +23,7 @@ export class DataService {
         .getPlayers(this.sortType$() === '' ? undefined : this.sortType$())
         .then((players) => {
           this.players$.set(players);
+          this.loadPlayerHistory();
         });
     });
     effect(() => {
@@ -32,6 +35,17 @@ export class DataService {
 
   public getPlayerById(id: number): Player | null {
     return this.players$().find((player) => player.id === id) ?? null;
+  }
+
+  public loadPlayerHistory() {
+    this.history$.set([]);
+    this.players$().forEach((player) => {
+      this._requestService.getHistory(player.id).then((history) => {
+        this.history$.update((oldHistory) => {
+          return [...oldHistory, { name: player.name, history }];
+        });
+      });
+    });
   }
 
   get weekNumber(): number {
