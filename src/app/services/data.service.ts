@@ -20,7 +20,7 @@ export class DataService {
     });
   }
 
-  public getPlayerById(id: string): Player | null {
+  public getPlayerById(id: number): Player | null {
     return this.players$().find((player) => player.id === id) ?? null;
   }
 }

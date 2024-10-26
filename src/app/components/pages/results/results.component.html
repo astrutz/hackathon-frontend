@@ -1,45 +1,68 @@
-<div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-  <ul #defaultTab class="flex flex-wrap -mb-px text-sm font-medium text-center"
-      role="tablist">
+<h1 class="text-xl font-semibold text-center mt-4 mb-8">Ergebnis eintragen</h1>
+
+<div class="border-gray-200 dark:border-gray-700">
+  <ul
+    #defaultTab
+    class="flex flex-wrap justify-center text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 bg-gray-100 dark:bg-gray-700">
     <li class="me-2" role="presentation">
-      <button class="inline-block p-4 border-b-2 rounded-t-lg" #oneVsOneTab
-              type="button" role="tab" aria-controls="oneVsOne" aria-selected="false">1 vs. 1
+      <button
+        class="inline-block p-4 border-b-2 rounded-t-lg"
+        #oneVsOneTab
+        type="button"
+        role="tab"
+        aria-controls="oneVsOne"
+        aria-selected="false">
+        1 vs. 1
       </button>
     </li>
     <li class="me-2" role="presentation">
       <button
         class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
         #twoVsTwoTab
-        type="button" role="tab" aria-controls="twoVsTwo" aria-selected="false">2 vs. 2
+        type="button"
+        role="tab"
+        aria-controls="twoVsTwo"
+        aria-selected="false">
+        2 vs. 2
       </button>
     </li>
   </ul>
 </div>
 
-
 <div id="default-tab-content">
-  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" #oneVsOne role="tabpanel"
-       aria-labelledby="oneVsOne-tab">
-
-    <form class="flex flex-col gap-3 justify-between max-w-2xl mx-auto">
-      <div class="flex flex-row gap-3 justify-between max-w-2xl mx-auto">
+  <div
+    class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-800"
+    #oneVsOne
+    role="tabpanel"
+    aria-labelledby="oneVsOne-tab">
+    <form
+      class="flex flex-col gap-3 justify-between max-w-2xl mx-auto"
+      [formGroup]="singleFormGroup"
+      (ngSubmit)="submitGame(true)">
+      <div class="flex flex-row gap-3 justify-between max-w-2xl">
         <div class="grow">
-          <label for="playerOne" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white text-nowrap">Player
-            One</label>
-          <select id="playerOne"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Spieler 1</option>
+          <select
+            id="playerOne"
+            formControlName="player1"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
               <option value="{{ player.id }}">{{ player.name }}</option>
             }
           </select>
         </div>
         <div class="w-20">
-          <label for="score-player-one"
-                 class="mb-2 block text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
-          <input type="number" id="score-player-one" aria-describedby="helper-text-explanation"
-                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                 placeholder="00" required />
+          <input
+            formControlName="scoreTeam1"
+            type="number"
+            id="score-player-one"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="0"
+            max="10"
+            min="0"
+            step="1"
+            required />
         </div>
 
         <div class="text-3xl self-center">
@@ -47,112 +70,144 @@
         </div>
 
         <div class="w-20">
-          <label for="score-player-two"
-                 class="mb-2 block text-right text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
-          <input type="number" id="score-player-two" aria-describedby="helper-text-explanation"
-                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                 placeholder="00" required />
+          <input
+            formControlName="scoreTeam2"
+            type="number"
+            id="score-player-two"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="0"
+            max="10"
+            min="0"
+            step="1"
+            required />
         </div>
 
         <div class="grow">
-          <label for="countries"
-                 class="mb-2 block text-sm text-right font-medium text-gray-900 dark:text-white text-nowrap">Player
-            two</label>
-          <select id="countries"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Spieler 2</option>
+          <select
+            id="countries"
+            formControlName="player2"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
               <option value="{{ player.id }}">{{ player.name }}</option>
             }
           </select>
         </div>
-
-
       </div>
-      <button type="submit" class="max-w-2xl text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      <button
+        type="submit"
+        [disabled]="!singleFormGroup.valid"
+        [ngClass]="{
+          'cursor-not-allowed !hover:bg-gray-400 !dark:bg-gray-400 !bg-gray-400':
+            !singleFormGroup.valid,
+        }"
+        class="max-w-2xl text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Speichern
+      </button>
     </form>
-
-
   </div>
-  <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" #twoVsTwo role="tabpanel"
-       aria-labelledby="twoVsTwo-tab">
+  <div
+    class="hidden p-4 rounded-b-lg bg-gray-50 dark:bg-gray-800"
+    #twoVsTwo
+    role="tabpanel"
+    aria-labelledby="twoVsTwo-tab">
+    <form
+      class="flex flex-col gap-3 justify-between max-w-2xl mx-auto"
+      [formGroup]="doubleFormGroup"
+      (ngSubmit)="submitGame(false)">
+      <div class="flex flex-row gap-3 justify-between max-w-2xl mx-auto items-center">
+        <div class="grow flex flex-col gap-2">
+          <select
+            id="team-one-playerOne"
+            formControlName="player1"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="" selected></option>
+            @for (player of dataService.players$(); track $index) {
+              <option value="{{ player.id }}">{{ player.name }}</option>
+            }
+          </select>
+          <select
+            id="team-one-playerTwo"
+            formControlName="player2"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="" selected></option>
+            @for (player of dataService.players$(); track $index) {
+              <option value="{{ player.id }}">{{ player.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="w-20 self-center">
+          <input
+            type="number"
+            formControlName="scoreTeam1"
+            id="score-team-one"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="0"
+            max="10"
+            min="0"
+            step="1"
+            required />
+        </div>
 
-    <form class="flex flex-col gap-3 justify-between max-w-2xl mx-auto">
-      <div class="flex flex-row gap-3 justify-between max-w-2xl mx-auto">
-      <div class="grow">
-        <h2>Team 1</h2>
+        <div class="text-3xl self-center">
+          <span>:</span>
+        </div>
 
-        <label for="team-one-playerOne"
-               class="mb-2 text-sm block font-medium text-gray-900 dark:text-white text-nowrap">Player One</label>
-        <select id="team-one-playerOne"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Spieler 1</option>
-          @for (player of dataService.players$(); track $index) {
-            <option value="{{ player.id }}">{{ player.name }}</option>
-          }
-        </select>
+        <div class="w-20 self-center">
+          <input
+            type="number"
+            formControlName="scoreTeam2"
+            id="score-team-two"
+            aria-describedby="helper-text-explanation"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="0"
+            max="10"
+            min="0"
+            step="1"
+            required />
+        </div>
 
-        <label for="team-one-playerTwo"
-               class="mb-2 mt-3 block text-sm font-medium text-gray-900 dark:text-white text-nowrap ">Player One</label>
-        <select id="team-one-playerTwo"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Spieler 1</option>
-          @for (player of dataService.players$(); track $index) {
-            <option value="{{ player.id }}">{{ player.name }}</option>
-          }
-        </select>
+        <div class="grow flex flex-col gap-2">
+          <select
+            id="team-two-playerOne"
+            formControlName="player3"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="" selected></option>
+            @for (player of dataService.players$(); track $index) {
+              <option value="{{ player.id }}">{{ player.name }}</option>
+            }
+          </select>
+          <select
+            id="team-two-playerTwo"
+            formControlName="player4"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="" selected></option>
+            @for (player of dataService.players$(); track $index) {
+              <option value="{{ player.id }}">{{ player.name }}</option>
+            }
+          </select>
+        </div>
       </div>
-      <div class="w-20 self-center">
-        <label for="score-team-one"
-               class="mb-2 text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
-        <input type="number" id="score-team-one" aria-describedby="helper-text-explanation"
-               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               placeholder="00" required />
-      </div>
 
-      <div class="text-3xl self-center">
-        <span>:</span>
-      </div>
-
-      <div class="w-20 self-center">
-        <label for="score-team-one"
-               class="mb-2 text-right block text-sm font-medium text-gray-900 dark:text-white text-nowrap">Tore</label>
-        <input type="number" id="score-team-two" aria-describedby="helper-text-explanation"
-               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               placeholder="00" required />
-      </div>
-
-      <div class="grow">
-        <h2 class="text-right">Team 2</h2>
-        <label for="team-two-playerOne"
-               class="mb-2 text-right text-sm block font-medium text-gray-900 dark:text-white text-nowrap">Player
-          One</label>
-        <select id="team-two-playerOne"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Spieler 1</option>
-          @for (player of dataService.players$(); track $index) {
-            <option value="{{ player.id }}">{{ player.name }}</option>
-          }
-        </select>
-
-        <label for="team-two-playerTwo"
-               class="mb-2 mt-3 text-right text-sm block font-medium text-gray-900 dark:text-white text-nowrap">Player
-          One</label>
-        <select id="team-two-playerTwo"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option selected>Spieler 1</option>
-          @for (player of dataService.players$(); track $index) {
-            <option value="{{ player.id }}">{{ player.name }}</option>
-          }
-
-        </select>
-      </div>
-
-      </div>
-
-      <button type="submit" class="max-w-2xl text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-
+      <button
+        type="submit"
+        [disabled]="!doubleFormGroup.valid"
+        [ngClass]="{
+          'cursor-not-allowed !hover:bg-gray-400 !dark:bg-gray-400 !bg-gray-400':
+            !doubleFormGroup.valid,
+        }"
+        class="max-w-2xl text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Speichern
+      </button>
     </form>
-
   </div>
 </div>
+
+
+@if(isSent) {
+  <div class="p-4 mt-8 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+    <span class="font-medium">Ergebnis erfolgreich eingetragen!</span>
+  </div>
+}

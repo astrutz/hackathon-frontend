@@ -3,22 +3,22 @@ import { Player } from '../data/player.data';
 export const players: Player[] = [
   {
     games: [
-      {
-        id: '',
-        players: ['1', '3'],
-        score1: 4,
-        score2: 1,
-        timestamp: 0,
-      },
-      {
-        id: '',
-        players: ['1', '3'],
-        score1: 0,
-        score2: 1,
-        timestamp: 0,
-      },
+      // {
+      //   id: 0,
+      //   players: ['1', '3'],
+      //   score1: 4,
+      //   score2: 1,
+      //   timestamp: 0,
+      // },
+      // {
+      //   id: 0,
+      //   players: ['1', '3'],
+      //   score1: 0,
+      //   score2: 1,
+      //   timestamp: 0,
+      // },
     ],
-    id: '1',
+    id: 1,
     lost: 0,
     won: 1,
     name: 'Peter Wackel',
@@ -31,7 +31,7 @@ export const players: Player[] = [
   },
   {
     games: [],
-    id: '2',
+    id: 2,
     lost: 0,
     won: 1,
     name: 'Mallekalle',
@@ -44,7 +44,7 @@ export const players: Player[] = [
   },
   {
     games: [],
-    id: '3',
+    id: 3,
     lost: 0,
     won: 1,
     name: 'Mia Julia',
@@ -57,7 +57,7 @@ export const players: Player[] = [
   },
   {
     games: [],
-    id: '4',
+    id: 4,
     lost: 0,
     won: 1,
     name: 'Almklausi',
@@ -70,7 +70,7 @@ export const players: Player[] = [
   },
   {
     games: [],
-    id: '5',
+    id: 5,
     lost: 0,
     won: 1,
     name: 'Mickie Krause',
@@ -83,7 +83,7 @@ export const players: Player[] = [
   },
   {
     games: [],
-    id: '6',
+    id: 6,
     lost: 0,
     won: 1,
     name: 'Ikke Hüftgold',
@@ -96,7 +96,7 @@ export const players: Player[] = [
   },
   {
     games: [],
-    id: '7',
+    id: 7,
     lost: 0,
     won: 1,
     name: 'Isi Glück',

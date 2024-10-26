@@ -1,15 +1,15 @@
 import { Game } from './game.data';
 
 export type Player = {
-  id: string;
+  id: number;
   name: string;
   alias: string;
-  scores: {
-    elo: number;
-    glicko: number;
-    billo: number;
+  scores?: {
+    elo?: number;
+    glicko?: number;
+    billo?: number;
   };
-  won: number;
-  lost: number;
-  games: Game[];
+  won?: number;
+  lost?: number;
+  games?: Game[];
 };
