@@ -47,7 +47,10 @@ export class DataService {
     });
   }
 
-  public getPlayerById(id: number): Player | null {
+  public getPlayerById(id?: number): Player | null {
+    if(!id) {
+      return null;
+    }
     return this.players$().find((player) => player.id === id) ?? null;
   }
 

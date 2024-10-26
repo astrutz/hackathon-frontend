@@ -22,6 +22,9 @@ export class FixtureComponent {
         '[Deaktivierter Nutzer]'
       );
     }
+    if(!this.dataService.getPlayerById(this.game.team1Players?.[0])?.name) {
+      return '[Deaktivierter Nutzer]';
+    }
     return `${this.dataService.getPlayerById(this.game.team1Players?.[0])?.name ?? '[Deaktivierter Nutzer]'} & ${this.dataService.getPlayerById(this.game.team1Players?.[1])?.name ?? '[Deaktivierter Nutzer]'}`;
   }
 
@@ -32,10 +35,14 @@ export class FixtureComponent {
         '[Deaktivierter Nutzer]'
       );
     }
+    if(!this.dataService.getPlayerById(this.game.team2Players?.[0])?.name) {
+      return '[Deaktivierter Nutzer]';
+    }
     return `${this.dataService.getPlayerById(this.game.team2Players?.[0])?.name ?? '[Deaktivierter Nutzer]'} & ${this.dataService.getPlayerById(this.game.team2Players?.[1])?.name ?? '[Deaktivierter Nutzer]'}`;
   }
 
   get is1v1A(): boolean {
+    console.log(this.game);
     return (this.game.team1Players.length ?? 1) === 1;
   }
 
