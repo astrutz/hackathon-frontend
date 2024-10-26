@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://kickathon-backend.onrender.com/",
+    "target": "https://handsome-petra-kickathon-de3bbbf4.koyeb.app/",
     "secure": true,
     "changeOrigin": true,
     "pathRewrite": {
