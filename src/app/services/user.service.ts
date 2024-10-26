@@ -25,4 +25,12 @@ export class UserService {
   public isAuthenticated(): boolean {
     return !this.jwtHelper.isTokenExpired(this.getToken());
   }
+
+  setCurrentPlayerId(id: number) {
+    localStorage.setItem('playerId', String(id));
+  }
+
+  public getCurrentPlayerId(): any {
+    return localStorage.getItem('playerId');
+  }
 }

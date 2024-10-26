@@ -46,8 +46,9 @@ export class RegisterComponent {
   async onRegister(): Promise<void> {
     if (this.registerForm.valid) {
       try {
-        const token = await this.requestService.register(this.registerForm.getRawValue());
-        this._userService.setToken(token);
+        const result = await this.requestService.register(this.registerForm.getRawValue());
+        this._userService.setToken(result.jwt);
+        this._userService.setCurrentPlayerId(result.id);
         this.router.navigate(['leaderboard']);
       } catch (err) {
         this.errors = err;

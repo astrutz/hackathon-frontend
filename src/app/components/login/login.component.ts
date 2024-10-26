@@ -39,8 +39,9 @@ export class LoginComponent {
   async onLogin(): Promise<void> {
     if (this.loginForm.valid) {
       try {
-        const token = await this.requestService.login(this.loginForm.getRawValue());
-        this._userService.setToken(token);
+        const result = await this.requestService.login(this.loginForm.getRawValue());
+        this._userService.setToken(result.jwt);
+        this._userService.setCurrentPlayerId(result.id);
         this.router.navigate(['']);
       } catch (err) {
         this.errors = err;

@@ -12,4 +12,5 @@ export type Player = {
   won?: number;
   lost?: number;
   games?: Game[];
+  imageUrl?: string;
 };
