@@ -3,7 +3,7 @@
     <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="img/logo.png" class="h-12 md:h-16" alt="Flowbite Logo" />
       <span class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white"
-      >Kickathon</span
+        >Kickathon</span
       >
     </a>
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -15,7 +15,11 @@
         data-dropdown-toggle="user-dropdown"
         data-dropdown-placement="bottom">
         <span class="sr-only">Open user menu</span>
-        <img class="w-10 h-10 rounded-full" [src]="imagSrc" alt="user photo" />
+        <img
+          class="w-10 h-10 rounded-full"
+          [src]="userService.currentUser?.imageUrl"
+          [ngClass]="{ hidden: !userService.isAuthenticated() }"
+          alt="user photo" />
       </button>
       <!-- Dropdown menu -->
       <div
@@ -23,18 +27,24 @@
         id="user-dropdown">
         @if (userService.isAuthenticated()) {
           <div class="px-4 py-3">
-            <span class="block text-sm text-gray-900 dark:text-white">{{ name }}</span>
+            <span class="block text-sm text-gray-900 dark:text-white">{{
+              userService.currentUser?.name
+            }}</span>
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
             <li>
-              <a href="/userprofile"
-                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Profil</a>
+              <a
+                routerLink="/userprofile"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >Profil</a
+              >
             </li>
 
             <li>
-              <button (click)="onLogout()"
-                      class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-                Abmelden
+              <button
+                (click)="onLogout()"
+                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                Logout
               </button>
             </li>
           </ul>
