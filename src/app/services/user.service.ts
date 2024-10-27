@@ -24,6 +24,7 @@ export class UserService {
 
   public logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('playerId');
     this.currentUser = null;
     if (this.router.url.includes('results')) {
       this.router.navigate(['/login']);

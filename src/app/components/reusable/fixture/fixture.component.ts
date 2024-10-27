@@ -42,7 +42,6 @@ export class FixtureComponent {
   }
 
   get is1v1A(): boolean {
-    console.log(this.game);
     return (this.game.team1Players.length ?? 1) === 1;
   }
 

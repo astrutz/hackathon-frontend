@@ -3,6 +3,9 @@ module.exports = {
   darkMode: 'media',
   content: ['./src/**/*.{html,ts}', './node_modules/flowbite/**/*.js'],
   theme: {
+    fontFamily: {
+      sans: ['Noto', 'sans-serif'],
+    },
     extend: {
       colors: {
         gold: '#DAA520',
