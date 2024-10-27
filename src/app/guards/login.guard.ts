@@ -14,8 +14,6 @@ export class LoginGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true; // todo remove this when login is fixed
-
     if (this._userService.isAuthenticated()) {
       return true;
     }

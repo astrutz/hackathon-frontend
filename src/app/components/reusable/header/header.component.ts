@@ -24,12 +24,14 @@ export class HeaderComponent {
   constructor() {
     this.requestService.getPlayer(this.userService.getCurrentPlayerId()).then((player) => {
       this.name = player.name;
-      this.imagSrc = player.imageUrl??"img/demoavatar.jpg";
-      console.log(player);
+      this.imagSrc = player.imageUrl ??
+        'img/demoavatar.jpg';
     });
   }
 
-  onLogout():void {
+  onLogout(): void {
     this.userService.logout();
+    this.imagSrc = 'img/demoavatar.jpg';
+    this.name = '';
   }
 }
