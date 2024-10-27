@@ -15,11 +15,14 @@ export class ToastComponent implements OnInit {
   @Input({ required: true })
   message!: string;
 
+  @Input()
+  showTimeout: number = 2000;
+
   isHidden: boolean = false;
 
   ngOnInit() {
     setTimeout(() => {
       this.isHidden = true;
-    }, 2000);
+    }, this.showTimeout);
   }
 }

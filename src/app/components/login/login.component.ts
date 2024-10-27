@@ -9,15 +9,16 @@ import {
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
-
+import { NgClass } from '@angular/common';
+import { ToastComponent } from '../reusable/toast/toast.component';
 
 @Component({
   selector: 'kickathon-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass, ToastComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginComponent implements OnInit {
   public errors: any;
@@ -31,6 +32,8 @@ export class LoginComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
+
+  formState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
 
   get name() {
     return this.loginForm.get('name');
@@ -49,13 +52,20 @@ export class LoginComponent implements OnInit {
 
   async onLogin(): Promise<void> {
     if (this.loginForm.valid) {
+      this.formState = 'loading';
       try {
         const result = await this.requestService.login(this.loginForm.getRawValue());
         this._userService.setToken(result.jwt);
         this._userService.setCurrentPlayerId(result.id);
+        this.formState = 'success';
         this.router.navigate(['']);
-      } catch (err) {
-        this.errors = err;
+      } catch (err: any) {
+        this.formState = 'error';
+        if (err.response.data.message) {
+          this.errors = err.response.data.message;
+        } else {
+          this.errors = err.toString();
+        }
       }
     }
   }
