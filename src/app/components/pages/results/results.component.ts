@@ -14,7 +14,7 @@ import { Game } from '../../../data/game.data';
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../reusable/loading-spinner/loading-spinner.component';
-import {ToastComponent} from "../../reusable/toast/toast.component";
+import { ToastComponent } from '../../reusable/toast/toast.component';
 
 @Component({
   selector: 'kickathon-results',
@@ -109,7 +109,25 @@ export class ResultsComponent implements AfterViewInit {
         await this.requestService.postGame(game);
         this.state = 'sent';
         this.singleFormGroup.reset();
+        this.singleFormGroup = new FormGroup({
+          timestamp: new FormControl(new Date().toISOString(), [Validators.required]),
+          player1: new FormControl(0, [Validators.required, Validators.min(1)]),
+          player2: new FormControl(0, [Validators.required, Validators.min(1)]),
+          scoreTeam1: new FormControl(0, [Validators.required]),
+          scoreTeam2: new FormControl(0, [Validators.required]),
+        });
         this.doubleFormGroup.reset();
+
+        this.doubleFormGroup = new FormGroup({
+          timestamp: new FormControl(new Date().toISOString(), [Validators.required]),
+          player1: new FormControl(0, []),
+          player2: new FormControl(0, []),
+          player3: new FormControl(0, []),
+          player4: new FormControl(0, []),
+          scoreTeam1: new FormControl(0, [Validators.required]),
+          scoreTeam2: new FormControl(0, [Validators.required]),
+        });
+
       }
     } else {
       let rawData = this.doubleFormGroup.getRawValue();
@@ -138,14 +156,13 @@ export class ResultsComponent implements AfterViewInit {
         this.state = 'sending';
         await this.requestService.postGame(game);
         this.state = 'sent';
-        this.singleFormGroup.reset();
-        this.doubleFormGroup.reset();
       }
     }
   }
 
   get isSingleValid() {
     let rawData = this.singleFormGroup.getRawValue();
+    console.log(rawData);
     return (
       this.singleFormGroup.valid &&
       rawData.player1 &&

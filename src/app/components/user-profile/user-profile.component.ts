@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
 import { UserService } from '../../services/user.service';
@@ -75,12 +75,7 @@ export class UserProfileComponent {
       }
     }
     const formData: FormData = new FormData();
-    const extension = file.name.split('.')[1];
     formData.append('image', file, file.name);
-    // if (!(['jpg', 'png', 'jpeg', 'gif'].includes(extension?.toLowerCase()))) {
-    //   this.pictureState = 'idle';
-    //   return;
-    // }
     try {
       this.userService.currentUser!.imageUrl = await this.requestService.uploadPicture(
         formData,
