@@ -77,10 +77,10 @@ export class UserProfileComponent {
     const formData: FormData = new FormData();
     const extension = file.name.split('.')[1];
     formData.append('image', file, file.name);
-    if (!['jpg', 'png', 'jpeg', 'gif'].includes(extension?.toLowerCase())) {
-      this.pictureState = 'idle';
-      return;
-    }
+    // if (!(['jpg', 'png', 'jpeg', 'gif'].includes(extension?.toLowerCase()))) {
+    //   this.pictureState = 'idle';
+    //   return;
+    // }
     try {
       this.userService.currentUser!.imageUrl = await this.requestService.uploadPicture(
         formData,
