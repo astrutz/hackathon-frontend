@@ -3,17 +3,25 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RequestService } from '../../services/request.service';
 import { UserService } from '../../services/user.service';
 import { NgClass, NgOptimizedImage } from '@angular/common';
-import {ToastComponent} from "../reusable/toast/toast.component";
+import { ToastComponent } from '../reusable/toast/toast.component';
+import { LoadingSpinnerComponent } from '../reusable/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'kickathon-user-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, NgOptimizedImage, NgClass, ToastComponent],
+  imports: [
+    ReactiveFormsModule,
+    NgOptimizedImage,
+    NgClass,
+    ToastComponent,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
   formState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
+  pictureState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
   errors: any = null;
 
   requestService: RequestService = inject(RequestService);
@@ -45,16 +53,47 @@ export class UserProfileComponent {
   }
 
   async uploadPicture(event: Event) {
-    console.log('HELLLLOOOOOO', event);
-    const file = (event.target as HTMLInputElement)?.files?.item(0);
-    if (file) {
-      const formData: FormData = new FormData();
+    if (this.pictureState === 'loading') {
+      return;
+    }
+    this.pictureState = 'loading';
+    event.preventDefault();
+    event.stopPropagation();
+    let file = (event.target as HTMLInputElement)?.files?.item(0);
 
-      formData.append('image', file, file.name);
+    if (!file) {
+      try {
+        // @ts-ignore
+        file = event['dataTransfer']['files'][0];
+      } catch (err) {
+        this.pictureState = 'error';
+        return;
+      }
+      if (!file) {
+        this.pictureState = 'idle';
+        return;
+      }
+    }
+    const formData: FormData = new FormData();
+    const extension = file.name.split('.')[1];
+    formData.append('image', file, file.name);
+    if (!['jpg', 'png', 'jpeg', 'gif'].includes(extension?.toLowerCase())) {
+      this.pictureState = 'idle';
+      return;
+    }
+    try {
       this.userService.currentUser!.imageUrl = await this.requestService.uploadPicture(
         formData,
         this.userService.currentPlayerId!,
       );
+      this.pictureState = 'idle';
+    } catch (err) {
+      this.pictureState = 'error';
     }
+  }
+
+  preventDragging(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 }
