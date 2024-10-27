@@ -5,6 +5,7 @@ import { Player } from '../../../data/player.data';
 import { Game } from '../../../data/game.data';
 import { CurveComponent } from '../../reusable/curve/curve.component';
 import { LoadingSpinnerComponent } from '../../reusable/loading-spinner/loading-spinner.component';
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'kickathon-leaderboard',
@@ -15,6 +16,7 @@ import { LoadingSpinnerComponent } from '../../reusable/loading-spinner/loading-
 })
 export class LeaderboardComponent {
   protected dataService: DataService = inject(DataService);
+  protected userService: UserService = inject(UserService);
   currentView: string = 'default';
 
   getGoals(player: Player): string {
