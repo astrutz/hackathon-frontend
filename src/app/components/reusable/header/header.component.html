@@ -36,12 +36,12 @@
               {{ userService.currentUser?.name }}
             </div>
             @if (userService.currentUser?.scores?.billo) {
-              <div class="text-sm text-gray-900 dark:text-white">
+              <div class="text-xs text-gray-900 dark:text-white">
                 Punkte: {{ userService!.currentUser!.scores!.billo ?? '' }}
               </div>
             }
             @if (userService.currentUser?.scores?.elo) {
-              <div class="text-sm text-gray-900 dark:text-white">
+              <div class="text-xs text-gray-900 dark:text-white">
                 Elo: {{ userService!.currentUser!.scores!.elo ?? '' }}
               </div>
             }
