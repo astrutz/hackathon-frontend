@@ -11,8 +11,8 @@ export const routes: Routes = [
   { path: '', redirectTo: '/leaderboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'leaderboard', component: LeaderboardComponent, canActivate: [LoginGuard] },
-  { path: 'fixtures', component: FixturesComponent, canActivate: [LoginGuard] },
+  { path: 'leaderboard', component: LeaderboardComponent, canActivate: [] },
+  { path: 'fixtures', component: FixturesComponent, canActivate: [] },
   { path: 'results', component: ResultsComponent, canActivate: [LoginGuard] },
   { path: 'userprofile', component: UserProfileComponent, canActivate: [LoginGuard] },
 ];
