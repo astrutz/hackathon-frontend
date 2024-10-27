@@ -9,17 +9,20 @@ import {
   Validators,
 } from '@angular/forms';
 import { RequestService } from '../../services/request.service';
+import {ToastComponent} from "../reusable/toast/toast.component";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'kickathon-register',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ToastComponent, NgClass],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   public errors: any;
-  public success: boolean = false;
+  formState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
+
   private requestService: RequestService = inject(RequestService);
   private _userService: UserService = inject(UserService);
 
@@ -45,13 +48,20 @@ export class RegisterComponent {
 
   async onRegister(): Promise<void> {
     if (this.registerForm.valid) {
+      this.formState = 'loading';
       try {
         const result = await this.requestService.register(this.registerForm.getRawValue());
         this._userService.setToken(result.jwt);
         this._userService.setCurrentPlayerId(result.id);
+        this.formState = 'success';
         this.router.navigate(['leaderboard']);
-      } catch (err) {
-        this.errors = err;
+      } catch (err: any) {
+        this.formState = 'error';
+        if (err.response.data.message) {
+          this.errors = err.response.data.message;
+        } else {
+          this.errors = err.toString();
+        }
       }
     }
   }
