@@ -14,11 +14,12 @@ import { Game } from '../../../data/game.data';
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../reusable/loading-spinner/loading-spinner.component';
+import {ToastComponent} from "../../reusable/toast/toast.component";
 
 @Component({
   selector: 'kickathon-results',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgClass, LoadingSpinnerComponent],
+  imports: [FormsModule, ReactiveFormsModule, NgClass, LoadingSpinnerComponent, ToastComponent],
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss',
 })

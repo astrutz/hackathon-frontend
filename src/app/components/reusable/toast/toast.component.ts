@@ -16,7 +16,7 @@ export class ToastComponent implements OnInit {
   message!: string;
 
   @Input()
-  showTimeout: number = 2000;
+  showTimeout: number = 5000;
 
   isHidden: boolean = false;
 
