@@ -1,4 +1,4 @@
-<div class="flex flex-row justify-center mt-16">
+<div class="flex flex-row justify-center mt-16" (mousemove)="onHover($event)">
   <div
     class="w-full w-sm max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
     <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="onLogin()">
@@ -45,5 +45,5 @@
     </form>
   </div>
 </div>
-<model-viewer src="kickathon-animierter-ball.glb" alt="3D Model" autoplay animation-name="IcosphereAction" field-of-view="5deg" style="width: 100%; height: 200px;">
+<model-viewer #modelViewer src="kickathon-animierter-ball.glb" alt="3D Model" autoplay animation-name="IcosphereAction" field-of-view="5deg" style="width: 100%; height: 200px;">
 </model-viewer>
