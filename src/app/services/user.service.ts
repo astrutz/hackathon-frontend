@@ -35,7 +35,8 @@ export class UserService {
     if (this.currentPlayerId && !this.currentUser) {
       this.setPlayer();
     }
-    return !this.jwtHelper.isTokenExpired(this.getToken());
+    return false;
+    //return !this.jwtHelper.isTokenExpired(this.getToken());
   }
 
   setCurrentPlayerId(id: number) {

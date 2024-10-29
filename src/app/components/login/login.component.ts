@@ -6,7 +6,7 @@ import {
   OnInit,
   Renderer2,
   ViewChild,
-  AfterViewInit
+  AfterViewInit, HostListener,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   // Berechnung für die Rotation beim Hovern
+  @HostListener("document:mousemove",["$event"])
   onHover(event: MouseEvent): void {
     if (!this.modelViewerRef) return; // Sicherheitsüberprüfung
 
