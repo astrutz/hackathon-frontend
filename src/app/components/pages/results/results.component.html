@@ -48,11 +48,16 @@
         <div class="grow">
           <select
             id="playerOne"
+            (input)="playerChange($event, 0)"
             formControlName="player1"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500">
             <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
-              <option value="{{ player.id }}">{{ player.name }}</option>
+              <option
+                [disabled]="!selectableSinglePlayers$().includes(player)"
+                value="{{ player.id }}">
+                {{ player.name }}
+              </option>
             }
           </select>
         </div>
@@ -91,11 +96,16 @@
         <div class="grow">
           <select
             id="countries"
+            (input)="playerChange($event, 1)"
             formControlName="player2"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500">
             <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
-              <option value="{{ player.id }}">{{ player.name }}</option>
+              <option
+                [disabled]="!selectableSinglePlayers$().includes(player)"
+                value="{{ player.id }}">
+                {{ player.name }}
+              </option>
             }
           </select>
         </div>
@@ -141,20 +151,30 @@
         <div class="grow flex flex-col gap-2">
           <select
             id="team-one-playerOne"
+            (input)="playerChange($event, 2)"
             formControlName="player1"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500">
             <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
-              <option value="{{ player.id }}">{{ player.name }}</option>
+              <option
+                [disabled]="!selectableDoublePlayers$().includes(player)"
+                value="{{ player.id }}">
+                {{ player.name }}
+              </option>
             }
           </select>
           <select
             id="team-one-playerTwo"
+            (input)="playerChange($event, 3)"
             formControlName="player2"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500">
             <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
-              <option value="{{ player.id }}">{{ player.name }}</option>
+              <option
+                [disabled]="!selectableDoublePlayers$().includes(player)"
+                value="{{ player.id }}">
+                {{ player.name }}
+              </option>
             }
           </select>
         </div>
@@ -193,20 +213,30 @@
         <div class="grow flex flex-col gap-2">
           <select
             id="team-two-playerOne"
+            (input)="playerChange($event, 4)"
             formControlName="player3"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500">
             <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
-              <option value="{{ player.id }}">{{ player.name }}</option>
+              <option
+                [disabled]="!selectableDoublePlayers$().includes(player)"
+                value="{{ player.id }}">
+                {{ player.name }}
+              </option>
             }
           </select>
           <select
             id="team-two-playerTwo"
+            (input)="playerChange($event, 5)"
             formControlName="player4"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500">
             <option value="" selected></option>
             @for (player of dataService.players$(); track $index) {
-              <option value="{{ player.id }}">{{ player.name }}</option>
+              <option
+                [disabled]="!selectableDoublePlayers$().includes(player)"
+                value="{{ player.id }}">
+                {{ player.name }}
+              </option>
             }
           </select>
         </div>

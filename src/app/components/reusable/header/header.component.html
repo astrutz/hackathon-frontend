@@ -8,25 +8,24 @@
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <button
         type="button"
-        class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-primary-500 focus:border-primary-500"
         id="user-menu-button"
         aria-expanded="false"
         data-dropdown-toggle="user-dropdown"
         data-dropdown-placement="bottom">
-        <span class="sr-only">Open user menu</span>
-        <img
-          class="w-10 h-10 rounded-full border-2 border-gray-600"
-          [src]="userService.currentUser?.imageUrl"
-          [ngClass]="{
-            hidden: !userService.isAuthenticated() || !userService.currentUser?.imageUrl,
-          }"
-          alt="user photo" />
-        <span
-          [routerLink]="userService.isAuthenticated() ? null : '/login'"
-          [ngClass]="{
-            hidden: userService.isAuthenticated() && userService.currentUser?.imageUrl,
-          }"
-          class="rounded-full bg-gray-500 h-10 w-10"></span>
+        @if (userService.isAuthenticated()) {
+          <img
+            class="w-10 h-10 rounded-full border-2 border-gray-600"
+            [src]="userService.currentUser?.imageUrl ?? '/img/logo.png'"
+            alt="user photo" />
+        } @else {
+          <button
+            [routerLink]="userService.isAuthenticated() ? null : '/login'"
+            [queryParams]="userService.isAuthenticated() ? null : { url: this.router.url }"
+            type="button"
+            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            Login
+          </button>
+        }
       </button>
       <!-- Dropdown menu -->
       <div

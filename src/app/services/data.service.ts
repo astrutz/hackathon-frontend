@@ -28,7 +28,6 @@ export class DataService {
   private _requestService: RequestService = inject(RequestService);
   constructor() {
     effect(() => {
-      console.log('get players');
       this._requestService
         .getPlayers(this.sortType$() === '' ? undefined : this.sortType$())
         .then((players) => {

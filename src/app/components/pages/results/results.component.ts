@@ -1,4 +1,13 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  signal,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import { TabItem, Tabs } from 'flowbite';
 import { DataService } from '../../../services/data.service';
 import { RequestService } from '../../../services/request.service';
@@ -11,15 +20,24 @@ import {
   Validators,
 } from '@angular/forms';
 import { Game } from '../../../data/game.data';
-import { NgClass } from '@angular/common';
+import { JsonPipe, NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../reusable/loading-spinner/loading-spinner.component';
 import { ToastComponent } from '../../reusable/toast/toast.component';
+import { pairwise } from 'rxjs';
+import { Player } from '../../../data/player.data';
 
 @Component({
   selector: 'kickathon-results',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgClass, LoadingSpinnerComponent, ToastComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    LoadingSpinnerComponent,
+    ToastComponent,
+    JsonPipe,
+  ],
   templateUrl: './results.component.html',
   styleUrl: './results.component.scss',
 })
@@ -45,6 +63,34 @@ export class ResultsComponent implements AfterViewInit {
     scoreTeam1: new FormControl(0, [Validators.required]),
     scoreTeam2: new FormControl(0, [Validators.required]),
   });
+
+  protected selectableSinglePlayers$ = computed(() => {
+    return this.dataService.players$().filter((player) => {
+      return (
+        this.selectedPlayer1() !== player.id &&
+        this.selectedPlayer2() !== player.id
+      );
+    });
+  });
+
+  protected selectableDoublePlayers$ = computed(() => {
+    return this.dataService.players$().filter((player) => {
+      return (
+        this.selectedPlayer3() !== player.id &&
+        this.selectedPlayer4() !== player.id &&
+        this.selectedPlayer5() !== player.id &&
+        this.selectedPlayer6() !== player.id
+      );
+    });
+  });
+
+
+  protected selectedPlayer1: WritableSignal<number | null> = signal(null);
+  protected selectedPlayer2: WritableSignal<number | null> = signal(null);
+  protected selectedPlayer3: WritableSignal<number | null> = signal(null);
+  protected selectedPlayer4: WritableSignal<number | null> = signal(null);
+  protected selectedPlayer5: WritableSignal<number | null> = signal(null);
+  protected selectedPlayer6: WritableSignal<number | null> = signal(null);
 
   state: 'idle' | 'sending' | 'sent' = 'idle';
 
@@ -94,6 +140,33 @@ export class ResultsComponent implements AfterViewInit {
     tabs.show('oneVsOne');
   }
 
+  playerChange(event: Event, index: number) {
+    const value =
+      (event.target as HTMLInputElement).value !== ''
+        ? +(event.target as HTMLInputElement).value
+        : null;
+    switch (index) {
+      case 0:
+        this.selectedPlayer1.set(value);
+        return;
+      case 1:
+        this.selectedPlayer2.set(value);
+        return;
+      case 2:
+        this.selectedPlayer3.set(value);
+        return;
+      case 3:
+        this.selectedPlayer4.set(value);
+        return;
+      case 4:
+        this.selectedPlayer5.set(value);
+        return;
+      case 5:
+        this.selectedPlayer6.set(value);
+        return;
+    }
+  }
+
   async submitGame(is1v1: boolean): Promise<void> {
     if (is1v1) {
       let rawData = this.singleFormGroup.getRawValue();
@@ -127,7 +200,6 @@ export class ResultsComponent implements AfterViewInit {
           scoreTeam1: new FormControl(0, [Validators.required]),
           scoreTeam2: new FormControl(0, [Validators.required]),
         });
-
       }
     } else {
       let rawData = this.doubleFormGroup.getRawValue();
@@ -162,7 +234,6 @@ export class ResultsComponent implements AfterViewInit {
 
   get isSingleValid() {
     let rawData = this.singleFormGroup.getRawValue();
-    console.log(rawData);
     return (
       this.singleFormGroup.valid &&
       rawData.player1 &&

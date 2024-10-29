@@ -10,7 +10,12 @@
     <form class="p-6 space-y-4 md:space-y-6 sm:p-8" [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <h5 class="text-xl font-medium text-gray-900 md:text-2xl dark:text-white">Lust zu bolzen?</h5>
       <div>
-        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        <label
+          for="name"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          [ngClass]="{
+            '!text-red-600 dark:!text-red-500': isNameInvalid,
+          }"
           >Teamname</label
         >
         <input
@@ -20,10 +25,26 @@
           id="name"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
           placeholder="Ruhrpott Coal Titans"
+          [ngClass]="{
+            'bg-red-50 !border-red-500 !text-red-900 focus:!ring-red-500 focus:!border-red-500 dark:!text-red-500 dark:!border-red-500':
+              isNameInvalid,
+          }"
           required />
+        @if (isNameInvalid) {
+          <div class="mt-1 text-sm text-red-600 dark:text-red-500">
+            @if (name.errors?.['required']) {
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">Teamname ist erforderlich.</p>
+            }
+          </div>
+        }
       </div>
       <div>
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        <label
+          for="password"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          [ngClass]="{
+            '!text-red-600 dark:!text-red-500': isPasswordInvalid,
+          }"
           >Passwort</label
         >
         <input
@@ -31,9 +52,26 @@
           name="password"
           formControlName="password"
           id="password"
+          autocomplete="on"
           placeholder="••••••••"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
+          [ngClass]="{
+            'bg-red-50 !border-red-500 !text-red-900 focus:!ring-red-500 focus:!border-red-500 dark:!text-red-500 dark:!border-red-500':
+              isPasswordInvalid,
+          }"
           required />
+        @if (isPasswordInvalid) {
+          <div class="mt-1 text-sm text-red-600 dark:text-red-500">
+            @if (password.errors?.['required']) {
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">Passwort ist erforderlich.</p>
+            }
+            @if (password.errors?.['minlength']) {
+              <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                Mindestens vier Zeichen eingeben.
+              </p>
+            }
+          </div>
+        }
       </div>
       <button
         type="submit"
