@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'media',
-  content: ["./src/**/*.{html,ts}","./node_modules/flowbite/**/*.js"],
+  content: ['./src/**/*.{html,ts}', './node_modules/flowbite/**/*.js'],
   theme: {
+    fontFamily: {
+      sans: ['Noto', 'sans-serif'],
+    },
     extend: {
       colors: {
-        'gold': '#DAA520',
-        'silver': '#A9A9A9',
-        'bronze': '#CD7F32',
+        gold: '#DAA520',
+        silver: '#A9A9A9',
+        bronze: '#CD7F32',
         primary: {
           100: '#8fb578',
           200: '#68a161',
@@ -20,5 +23,4 @@ module.exports = {
     },
   },
   plugins: [require('flowbite/plugin')],
-}
-
+};

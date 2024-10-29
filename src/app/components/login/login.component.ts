@@ -9,6 +9,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -18,20 +19,22 @@ import {
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { RequestService } from '../../services/request.service';
+import { NgClass } from '@angular/common';
+import { ToastComponent } from '../reusable/toast/toast.component';
 
 @Component({
   selector: 'kickathon-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass, ToastComponent],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  styleUrl: './login.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   public errors: any;
   private requestService: RequestService = inject(RequestService);
   private _userService: UserService = inject(UserService);
-  private router: Router = inject(Router);
+  private _router: Router = inject(Router);
 
   constructor(private renderer: Renderer2) {}
 
@@ -40,12 +43,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
-  get name() {
-    return this.loginForm.get('name');
+  formState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
+
+  get name(): AbstractControl {
+    return this.loginForm.get('name')!;
   }
 
-  get password() {
-    return this.loginForm.get('password');
+  get password(): AbstractControl {
+    return this.loginForm.get('password')!;
+  }
+
+  get isNameInvalid(): boolean {
+    return (this.name.invalid && (this.name.dirty || this.name.touched)) ?? false;
+  }
+
+  get isPasswordInvalid(): boolean {
+    return (this.password.invalid && (this.password.dirty || this.password.touched)) ?? false;
   }
 
   ngOnInit(): void {
@@ -81,12 +94,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   async onLogin(): Promise<void> {
     if (this.loginForm.valid) {
+      this.formState = 'loading';
       try {
-        const token = await this.requestService.login(this.loginForm.getRawValue());
-        this._userService.setToken(token);
-        this.router.navigate(['']);
-      } catch (err) {
-        this.errors = err;
+        const result = await this.requestService.login(this.loginForm.getRawValue());
+        this._userService.setToken(result.jwt);
+        this._userService.setCurrentPlayerId(result.id);
+        this.formState = 'success';
+        const queryParam = this._router.parseUrl(this._router.url)?.queryParams?.['url'];
+        this._router.navigate([queryParam ?? 'results']);
+      } catch (err: any) {
+        this.formState = 'error';
+        if (err.response.data.message) {
+          this.errors = err.response.data.message;
+        } else {
+          this.errors = err.toString();
+        }
       }
     }
   }

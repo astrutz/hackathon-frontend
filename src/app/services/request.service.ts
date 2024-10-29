@@ -2,7 +2,9 @@ import { Injectable, isDevMode } from '@angular/core';
 import { Player } from '../data/player.data';
 import axios from 'axios';
 import { Game } from '../data/game.data';
+import { PlayerHistoryEntry } from '../data/history.data';
 import { RegisterData } from '../data/register.data';
+import { UpdateProfileData } from '../data/updateprofile.data';
 
 @Injectable({
   providedIn: 'root',
@@ -53,11 +55,23 @@ export class RequestService {
     await axios.delete(`${this.host}/games/${id}`);
   }
 
-  async login(data: any): Promise<string> {
+  async getHistory(id: number): Promise<PlayerHistoryEntry[]> {
+    return (await axios.get(`${this.host}/players/${id}/history`)).data;
+  }
+
+  async login(data: any): Promise<{ jwt: string, id: number}> {
     return (await axios.post(`${this.host}/auth/login`, data)).data;
   }
 
-  async register(data: RegisterData): Promise<string> {
+  async register(data: RegisterData): Promise<{ jwt: string, id: number}> {
     return (await axios.post(`${this.host}/auth/register`, data)).data;
+  }
+
+  async uploadPicture(formData: FormData, playerId: number): Promise<string> {
+    return (await axios.patch(`${this.host}/players/${playerId}/image`, formData)).data
+  }
+
+  async patchName(data: UpdateProfileData, playerId: number): Promise<string> {
+    return (await axios.patch(`${this.host}/players/${playerId}/name`, data)).data
   }
 }
