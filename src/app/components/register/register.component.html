@@ -13,20 +13,43 @@
       </h2>
       <form class="space-y-4 md:space-y-6" [formGroup]="registerForm" (ngSubmit)="onRegister()">
         <div>
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          <label
+            for="name"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            [ngClass]="{
+              '!text-red-600 dark:!text-red-500': isNameInvalid,
+            }"
             >Teamname</label
           >
           <input
-            type="text"
+            type="name"
             name="name"
             formControlName="name"
             id="name"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
             placeholder="Ruhrpott Coal Titans"
-            required="" />
+            [ngClass]="{
+              'bg-red-50 !border-red-500 !text-red-900 focus:!ring-red-500 focus:!border-red-500 dark:!text-red-500 dark:!border-red-500':
+                isNameInvalid,
+            }"
+            required />
+          @if (isNameInvalid) {
+            <div class="mt-1 text-sm text-red-600 dark:text-red-500">
+              @if (name.errors?.['required']) {
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                  Teamname ist erforderlich.
+                </p>
+              }
+            </div>
+          }
         </div>
         <div>
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            [ngClass]="{
+              '!text-red-600 dark:!text-red-500': isPasswordInvalid,
+            }"
             >Passwort</label
           >
           <input
@@ -34,14 +57,36 @@
             name="password"
             formControlName="password"
             id="password"
+            autocomplete="on"
             placeholder="••••••••"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
-            required="" />
+            [ngClass]="{
+              'bg-red-50 !border-red-500 !text-red-900 focus:!ring-red-500 focus:!border-red-500 dark:!text-red-500 dark:!border-red-500':
+                isPasswordInvalid,
+            }"
+            required />
+          @if (isPasswordInvalid) {
+            <div class="mt-1 text-sm text-red-600 dark:text-red-500">
+              @if (password.errors?.['required']) {
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                  Passwort ist erforderlich.
+                </p>
+              }
+              @if (password.errors?.['minlength']) {
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                  Mindestens vier Zeichen eingeben.
+                </p>
+              }
+            </div>
+          }
         </div>
         <div>
           <label
             for="confirmPassword"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            [ngClass]="{
+              '!text-red-600 dark:!text-red-500': isConfirmPasswordInvalid,
+            }"
             >Passwort wiederholen</label
           >
           <input
@@ -49,13 +94,41 @@
             name="confirmPassword"
             formControlName="confirmPassword"
             id="confirmPassword"
+            autocomplete="on"
             placeholder="••••••••"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-200 dark:focus:border-primary-500"
+            [ngClass]="{
+              'bg-red-50 !border-red-500 !text-red-900 focus:!ring-red-500 focus:!border-red-500 dark:!text-red-500 dark:!border-red-500':
+                isConfirmPasswordInvalid,
+            }"
             required="" />
+          @if (isConfirmPasswordInvalid) {
+            <div class="mt-1 text-sm text-red-600 dark:text-red-500">
+              @if (confirmPassword.errors?.['required']) {
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                  Passwort ist erforderlich.
+                </p>
+              }
+              @if (confirmPassword.errors?.['minlength']) {
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                  Mindestens vier Zeichen eingeben.
+                </p>
+              }
+              @if (registerForm.errors?.['passwordUnequal']) {
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">
+                  Die Passwörter müssen übereinstimmen.
+                </p>
+              }
+            </div>
+          }
         </div>
         <button
           type="submit"
-          [ngClass]="{ 'cursor-not-allowed': registerForm.invalid || formState === 'loading' }"
+          [disabled]="registerForm.invalid || formState === 'loading'"
+          [ngClass]="{
+            'cursor-not-allowed !hover:bg-gray-400 !dark:bg-gray-400 !bg-gray-400':
+              registerForm.invalid || formState === 'loading',
+          }"
           class="flex justify-center items-center relative w-full text-white bg-primary-400 hover:bg-primary-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-400 dark:hover:bg-primary-300 dark:focus:ring-primary-600">
           <span>Team erstellen</span>
           @if (formState === 'loading') {

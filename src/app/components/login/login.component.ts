@@ -1,5 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, Renderer2 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -35,12 +36,20 @@ export class LoginComponent implements OnInit {
 
   formState: 'idle' | 'loading' | 'success' | 'error' = 'idle';
 
-  get name() {
-    return this.loginForm.get('name');
+  get name(): AbstractControl {
+    return this.loginForm.get('name')!;
   }
 
-  get password() {
-    return this.loginForm.get('password');
+  get password(): AbstractControl {
+    return this.loginForm.get('password')!;
+  }
+
+  get isNameInvalid(): boolean {
+    return (this.name.invalid && (this.name.dirty || this.name.touched)) ?? false;
+  }
+
+  get isPasswordInvalid(): boolean {
+    return (this.password.invalid && (this.password.dirty || this.password.touched)) ?? false;
   }
 
   ngOnInit(): void {
