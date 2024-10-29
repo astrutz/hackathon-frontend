@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   public errors: any;
   private requestService: RequestService = inject(RequestService);
   private _userService: UserService = inject(UserService);
-  private router: Router = inject(Router);
+  private _router: Router = inject(Router);
 
   constructor(private renderer: Renderer2) {}
 
@@ -58,7 +58,8 @@ export class LoginComponent implements OnInit {
         this._userService.setToken(result.jwt);
         this._userService.setCurrentPlayerId(result.id);
         this.formState = 'success';
-        this.router.navigate(['']);
+        const queryParam = this._router.parseUrl(this._router.url)?.queryParams?.['url'];
+        this._router.navigate([queryParam ?? 'results']);
       } catch (err: any) {
         this.formState = 'error';
         if (err.response.data.message) {

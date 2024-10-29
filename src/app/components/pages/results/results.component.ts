@@ -162,7 +162,6 @@ export class ResultsComponent implements AfterViewInit {
 
   get isSingleValid() {
     let rawData = this.singleFormGroup.getRawValue();
-    console.log(rawData);
     return (
       this.singleFormGroup.valid &&
       rawData.player1 &&
