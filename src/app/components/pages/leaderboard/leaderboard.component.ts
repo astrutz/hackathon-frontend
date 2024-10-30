@@ -69,4 +69,17 @@ export class LeaderboardComponent {
   onViewChange(event: Event, value: string): void {
     this.currentView = value;
   }
+
+  get randomPlaceholder(): string {
+    const images: string[] = [
+      'logo.png',
+      'logo-blau.png',
+      'logo-flieder.png',
+      'logo-grau.png',
+      'logo-rostrot.png',
+      'logo-türkis.png',
+    ];
+    const index: number = Math.floor(Math.random() * images.length);
+    return "img/"+images[index];
+  }
 }
