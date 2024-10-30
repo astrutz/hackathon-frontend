@@ -76,7 +76,7 @@
                   {{ $index + 1 }}
                 </th>
                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <img [src]="player.imageUrl ?? 'img/logo.png'" class="inline h-8 w-8 rounded-full" />
+                  <img [src]="player.imageUrl ?? randomPlaceholder" class="inline h-8 w-8 rounded-full" />
                   <span class="ml-2 md:ml-4" [ngClass]="{'font-semibold': userService.currentUser?.id === player.id}">{{ player.name }}</span>
                 </td>
                 <td class="px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
