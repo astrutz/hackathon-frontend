@@ -29,7 +29,6 @@ export class RegisterComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(4)]),
       confirmPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
     },
-    { validators: passwordEqualValidator },
   );
   private requestService: RequestService = inject(RequestService);
   private _userService: UserService = inject(UserService);
